@@ -9,7 +9,22 @@ require("./config/database");
 
 const app = express();
 
-app.use(cors());
+// Set up CORS access
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://my-production-app-url",
+];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
 

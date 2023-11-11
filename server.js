@@ -10,10 +10,10 @@ require("./config/database");
 const app = express();
 
 // Set up CORS access
-const allowedOrigins = [
-  "http://localhost:3000/",
-  "https://my-production-app-url",
-];
+// const allowedOrigins = [
+//   "http://localhost:3000/",
+//   "https://my-production-app-url",
+// ];
 // const corsOptions = {
 //   origin: (origin, callback) => {
 //     if (allowedOrigins.includes(origin) || !origin) {
@@ -41,11 +41,8 @@ app.use(require("./config/checkToken"));
 
 // Added to allow CORS access
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000/");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
   res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
   res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Max-Age", "86400");

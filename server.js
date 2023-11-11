@@ -24,7 +24,11 @@ const allowedOrigins = [
 //   },
 // };
 
-app.use(cors());
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
+app.options("*", cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
 

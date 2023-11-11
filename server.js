@@ -40,14 +40,20 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use(require("./config/checkToken"));
 
 // Added to allow CORS access
-app.use(function (req, res, next) {
+app.all("/", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
   res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
   res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Max-Age", "86400");
   next();
 });
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Content-Type");
+
+//   next();
+// });
 
 // Put API routes here, before the "catch all" route
 app.use("/api/users", require("./routes/api/users"));

@@ -1,4 +1,5 @@
 {
   "version": 2,
-  "name": "advent-translation-backend"
+  "name": "advent-translation-backend",
+  "routes": [{ "src": "/build/index.html", "dest": "/" }]
 }

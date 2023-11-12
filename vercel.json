@@ -1,5 +1,6 @@
 {
   "version": 2,
   "name": "advent-translation-backend",
-  "routes": [{ "src": "/build/index.html", "dest": "/" }]
+  "builds": [{ "src": "server.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "/server.js" }]
 }

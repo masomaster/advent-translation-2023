@@ -10,50 +10,30 @@ require("./config/database");
 const app = express();
 
 // Set up CORS access
-// const allowedOrigins = [
-//   "http://localhost:3000/",
-//   "https://my-production-app-url",
-// ];
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (allowedOrigins.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-// };
-
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://my-production-app-url",
+];
 const corsOptions = {
-  origin: true,
-  credentials: true,
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
 };
-app.options("*", cors(corsOptions));
+
+app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
 
 // Configure both serve-favicon & static middleware
 // to serve from the production 'build' folder
-app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
+// app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
 app.use(express.static(path.join(__dirname, "build")));
 
 app.use(require("./config/checkToken"));
-
-// Added to allow CORS access
-// app.all("/", function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-//   res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header("Access-Control-Max-Age", "86400");
-//   next();
-// });
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Content-Type");
-
-//   next();
-// });
 
 // Put API routes here, before the "catch all" route
 app.use("/api/users", require("./routes/api/users"));

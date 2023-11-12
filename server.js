@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
 const logger = require("morgan");
-// const cors = require("cors");
+const cors = require("cors");
 
 require("dotenv").config();
 require("./config/database");
@@ -10,27 +10,27 @@ require("./config/database");
 const app = express();
 
 // Set up CORS access
-// const allowedOrigins = [
-//   "http://localhost:3000",
-//   "https://my-production-app-url",
-// ];
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (allowedOrigins.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-// };
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://my-production-app-url",
+];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
 
 // Configure both serve-favicon & static middleware
 // to serve from the production 'build' folder
-app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
+// app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
 app.use(express.static(path.join(__dirname, "build")));
 
 app.use(require("./config/checkToken"));

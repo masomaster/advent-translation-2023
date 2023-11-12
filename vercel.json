@@ -1,5 +1,5 @@
 {
   "version": 2,
   "name": "advent-translation-backend",
-  "routes": [{ "src": "/build/index.html", "dest": "/" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }

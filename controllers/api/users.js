@@ -19,7 +19,6 @@ async function create(req, res) {
 }
 
 async function login(req, res) {
-  console.log("got to controller");
   try {
     const user = await User.findOne({
       email: req.body.email,

@@ -33,7 +33,9 @@ export function logOut() {
 }
 
 export async function login(userData) {
+  console.log("starting login function in users-service.js");
   const token = await usersAPI.login(userData);
+  console.log("token from users-service.js login function is", token);
   localStorage.setItem("adventToken", token);
   return getUser();
 }

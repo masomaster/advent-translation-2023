@@ -10,6 +10,7 @@ module.exports = {
 
 async function create(req, res) {
   try {
+    console.log("got to controller create function", "req.body is", req.body);
     const user = await User.create(req.body);
     const token = createJWT(user);
     res.json(token);
@@ -19,7 +20,7 @@ async function create(req, res) {
 }
 
 async function login(req, res) {
-  console.log("got to controller");
+  console.log("got to controller login function");
   try {
     const user = await User.findOne({
       email: req.body.email,

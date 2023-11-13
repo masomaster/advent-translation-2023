@@ -25,10 +25,13 @@ async function login(req, res) {
     const user = await User.findOne({
       email: req.body.email,
     });
+    console.log("user is", user);
     if (!user) throw new Error();
     const match = await bcrypt.compare(req.body.password, user.password);
+    console.log("match is", match);
     if (!match) throw new Error();
     const token = createJWT(user);
+    console.log("token is", token);
     res.json(token);
   } catch {
     res.status(400).json("Bad Credentials");

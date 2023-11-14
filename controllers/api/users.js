@@ -10,7 +10,6 @@ module.exports = {
 
 async function create(req, res) {
   try {
-    console.log("got to controller create function", "req.body is", req.body);
     const user = await User.create(req.body);
     const token = createJWT(user);
     res.json(token);
@@ -20,18 +19,14 @@ async function create(req, res) {
 }
 
 async function login(req, res) {
-  console.log("got to controller login function");
   try {
     const user = await User.findOne({
       email: req.body.email,
     });
-    console.log("user is", user);
     if (!user) throw new Error();
     const match = await bcrypt.compare(req.body.password, user.password);
-    console.log("match is", match);
     if (!match) throw new Error();
     const token = createJWT(user);
-    console.log("token is", token);
     res.json(token);
   } catch {
     res.status(400).json("Bad Credentials");
@@ -39,7 +34,6 @@ async function login(req, res) {
 }
 
 function checkToken(req, res) {
-  console.log("req.user", req.user);
   res.json(req.exp);
 }
 

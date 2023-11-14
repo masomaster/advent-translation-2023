@@ -7,8 +7,6 @@ export async function signUp(userData) {
 }
 
 export async function login(credentials) {
-  console.log("starting login function in users-api.js");
-  console.log("sending to: ", `${BASE_URL}/login`);
   return sendRequest(`${BASE_URL}/login`, "POST", credentials);
 }
 

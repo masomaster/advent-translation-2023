@@ -96,7 +96,9 @@ export default function TranslationPanel({
             value={translation}
             onChange={(e) => setTranslation(e.target.value)}
           />
-          <button type="submit">save</button>
+          <button type="submit" id="save">
+            save
+          </button>
         </form>
         <div className="officialTranslation">
           <button onClick={() => handleShowOfficialTranslations()}>

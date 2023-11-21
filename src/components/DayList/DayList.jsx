@@ -43,10 +43,12 @@ export default function DayList({ setCurrentDay, setChecked, isProduction }) {
           </li>
         </Trigger>
         <Hover type="hover" key={`hover-${i}`}>
-          <div className="hover-text" key={`hover-div-${i}`}>
-            {days[i + 1].OT.citation.hebrew}
-            <br />
-            {days[i + 1].NT.citation.english}
+          <div className="hover-box">
+            <div className="hover-text" key={`hover-div-${i}`}>
+              {days[i + 1].OT.citation.hebrew}
+              <br />
+              {days[i + 1].NT.citation.english}
+            </div>
           </div>
         </Hover>
       </ReactHover>

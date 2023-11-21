@@ -41,7 +41,7 @@ export default function Home({
   }
 
   return (
-    <div>
+    <div id="home">
       <div>
         <h4>December {currentDay}:</h4>
       </div>

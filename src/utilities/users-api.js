@@ -1,6 +1,6 @@
 import sendRequest from "./send-request";
 // This is the base path of the Express route we'll define
-const BASE_URL = "https://www.adventtranslation.com/api/users";
+const BASE_URL = "/api/users";
 
 export async function signUp(userData) {
   return sendRequest(BASE_URL, "POST", userData);

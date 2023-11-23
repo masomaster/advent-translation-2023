@@ -55,6 +55,18 @@ button:hover {
   background-color: #73a580;
 }
 
+.full-width-buttons button {
+  width: 100%;
+}
+
+.day-buttons {
+  width: 100%;
+}
+
+.day-buttons > button {
+  width: 100%;
+}
+
 .paraBibleLink a {
   color: #555;
   text-decoration: none;
@@ -94,7 +106,6 @@ button:hover {
 }
 
 .nav-container {
-  /* display: flex; */
   justify-content: space-between;
   align-items: center;
   height: 62px;
@@ -109,10 +120,9 @@ button:hover {
   display: flex;
   padding-top: 80px;
   height: 100%;
-  width: 100%; /* changed from 100vw */
+  width: 100%;
   transform: translate(-150%);
   flex-direction: column;
-  /* margin-left: -40px; */
   transition: transform 0.5s ease-in-out;
   text-align: center;
 }
@@ -224,7 +234,7 @@ button:hover {
 .navbar .menu-items .day-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px; /* Adjust the gap between items as needed */
+  gap: 16px;
 }
 
 .navbar .menu-items .day-list .day-list-entry:hover {
@@ -274,15 +284,11 @@ button:hover {
   height: 0px;
 }
 
-/* .nav-container .behind ~ .daylist {
-  height: 0px;
-}
-
-.nav-container .behind ~ .menu-items {
-  height: 0px;
-} */
-
 @media (min-width: 750px) {
+  body {
+    margin: 15px;
+  }
+
   #home {
     width: 750px;
   }
@@ -316,12 +322,28 @@ button:hover {
     margin-top: 20px;
     margin-bottom: 20px;
     display: grid;
-    /* flex-direction: grid; */
     grid-template-columns: repeat(5, 1fr);
-    /* flex-wrap: wrap; */
     justify-content: center;
     align-items: center;
     max-width: 750px;
-    /* margin: 0 auto; */
+  }
+
+  .other-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .other-buttons > * {
+    flex-basis: calc(50% - 10px);
+    margin-bottom: 20px;
+  }
+
+  .day-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
   }
 }

@@ -89,7 +89,11 @@ export default function TranslationPanel({
         <p>{officialTranslation} </p>
       </div>
       <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
+        <form
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          className="full-width-buttons"
+        >
           <label htmlFor="translation">Your translation:</label>
           <textarea
             name="translation"
@@ -100,24 +104,31 @@ export default function TranslationPanel({
             save
           </button>
         </form>
-        <div className="officialTranslation">
-          <button onClick={() => handleShowOfficialTranslations()}>
+        <div className="full-width-buttons other-buttons">
+          <button
+            className="officialTranslation"
+            onClick={() => handleShowOfficialTranslations()}
+          >
             Show NET translation
           </button>
-        </div>
-        <div className="paraBibleLink">
-          <a href={paraBibleLink} target="_blank" rel="noreferrer">
+          <a
+            className="paraBibleLink"
+            href={paraBibleLink}
+            target="_blank"
+            rel="noreferrer"
+          >
             <button>Get language help at parabible</button>
           </a>
         </div>
-        <div className="progressButtons">
-          {languageIsHebrew ? (
+        <div className="progressButtons full-width-buttons other-buttons">
+          {languageIsHebrew && (
             <button onClick={handleLanguageSwitch}>On to Greek</button>
-          ) : (
-            <div>
-              <button onClick={handleLanguageSwitch}>Back to Hebrew</button>
-              <button onSubmit={handleSubmit}>Done for the Day!</button>
-            </div>
+          )}
+          {!languageIsHebrew && (
+            <button onClick={handleLanguageSwitch}>Back to Hebrew</button>
+          )}
+          {!languageIsHebrew && (
+            <button onSubmit={handleSubmit}>Done for the Day!</button>
           )}
         </div>
       </div>

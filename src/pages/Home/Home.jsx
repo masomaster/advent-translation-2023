@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as days from "../../days.json";
 import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
-// import DayTranslations from "../../components/DayTranslations/DayTranslations";
 
 export default function Home({
   user,
@@ -13,6 +12,14 @@ export default function Home({
   // Return verse info for the current day and language
   const dayData = languageIsHebrew ? days[currentDay].OT : days[currentDay].NT;
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [user, currentDay]);
 
   // Moves current day up or down and resets to Hebrew
   function handleIncrement() {
@@ -54,12 +61,14 @@ export default function Home({
           dayData={dayData}
           isProduction={isProduction}
         />
-        {currentDay !== 1 && (
-          <button onClick={() => handleDecrement()}>previous day</button>
-        )}
-        {currentDay !== numOfDays && currentDay < dontExceedDecDate() && (
-          <button onClick={() => handleIncrement()}>next day</button>
-        )}
+        <div className="day-buttons">
+          {currentDay !== 1 && (
+            <button onClick={() => handleDecrement()}>previous day</button>
+          )}
+          {currentDay !== numOfDays && currentDay < dontExceedDecDate() && (
+            <button onClick={() => handleIncrement()}>next day</button>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -46,7 +46,7 @@ export default function NavBar({ user, setUser, setCurrentDay, isProduction }) {
             target="_blank"
             rel="noreferrer"
           >
-            Feedback
+            This is an early release. Give Feedback!
           </a>
         </div>
         <div className="menu-items">
@@ -58,12 +58,14 @@ export default function NavBar({ user, setUser, setCurrentDay, isProduction }) {
               Log Out
             </Link>
           </li>
-          <DayList
-            setCurrentDay={setCurrentDay}
-            setChecked={setChecked}
-            checked={checked}
-            isProduction={isProduction}
-          />
+          {checked && (
+            <DayList
+              setCurrentDay={setCurrentDay}
+              setChecked={setChecked}
+              checked={checked}
+              isProduction={isProduction}
+            />
+          )}
         </div>
       </div>
     </nav>

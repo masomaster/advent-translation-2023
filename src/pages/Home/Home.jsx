@@ -7,8 +7,9 @@ export default function Home({
   currentDay,
   setCurrentDay,
   isProduction,
+  languageIsHebrew,
+  setLanguageIsHebrew,
 }) {
-  const [languageIsHebrew, setLanguageIsHebrew] = useState(true);
   // Return verse info for the current day and language
   const dayData = languageIsHebrew ? days[currentDay].OT : days[currentDay].NT;
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;

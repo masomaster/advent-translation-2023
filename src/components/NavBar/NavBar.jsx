@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 import * as userService from "../../utilities/users-service";
 import DayList from "../DayList/DayList";
 
-export default function NavBar({ user, setUser, setCurrentDay, isProduction }) {
+export default function NavBar({
+  user,
+  setUser,
+  setCurrentDay,
+  isProduction,
+  setLanguageIsHebrew,
+}) {
   const [checked, setChecked] = useState(false);
   const [behind, setBehind] = useState("behind");
 
@@ -64,6 +70,7 @@ export default function NavBar({ user, setUser, setCurrentDay, isProduction }) {
               setChecked={setChecked}
               checked={checked}
               isProduction={isProduction}
+              setLanguageIsHebrew={setLanguageIsHebrew}
             />
           )}
         </div>

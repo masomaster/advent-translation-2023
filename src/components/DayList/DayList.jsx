@@ -1,7 +1,12 @@
 import ReactHover, { Trigger, Hover } from "react-hover";
 import * as days from "../../days.json";
 
-export default function DayList({ setCurrentDay, setChecked, isProduction }) {
+export default function DayList({
+  setCurrentDay,
+  setChecked,
+  isProduction,
+  setLanguageIsHebrew,
+}) {
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
   const hoverOptions = {
     followCursor: false,
@@ -28,6 +33,7 @@ export default function DayList({ setCurrentDay, setChecked, isProduction }) {
   async function handleClick(d) {
     await changeDay(d);
     await changeChecked();
+    setLanguageIsHebrew(true);
   }
 
   for (let i = 0; i < maxDays && i < numOfDays; i++) {

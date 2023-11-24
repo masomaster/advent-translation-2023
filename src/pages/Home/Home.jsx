@@ -11,7 +11,6 @@ export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      left: 0,
       behavior: "smooth",
     });
   }, [user, currentDay]);

@@ -2,14 +2,8 @@ import { useState, useEffect } from "react";
 import * as days from "../../days.json";
 import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
 
-export default function Home({
-  user,
-  currentDay,
-  setCurrentDay,
-  isProduction,
-  languageIsHebrew,
-  setLanguageIsHebrew,
-}) {
+export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
+  const [languageIsHebrew, setLanguageIsHebrew] = useState(true);
   // Return verse info for the current day and language
   const dayData = languageIsHebrew ? days[currentDay].OT : days[currentDay].NT;
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
@@ -36,18 +30,6 @@ export default function Home({
     }
   }
 
-  // If it's December 2023, don't allow the user to go past the current day.
-  // If after that date, or not in production, allow user to see any day.
-  function dontExceedDecDate() {
-    let maxDate = 100;
-    if (isProduction) {
-      if (new Date().getMonth() === 11 && new Date().getFullYear === 2023) {
-        maxDate = new Date().getDate();
-      }
-    }
-    return maxDate;
-  }
-
   return (
     <div id="home">
       <div>
@@ -60,13 +42,12 @@ export default function Home({
           languageIsHebrew={languageIsHebrew}
           setLanguageIsHebrew={setLanguageIsHebrew}
           dayData={dayData}
-          isProduction={isProduction}
         />
         <div className="day-buttons">
           {currentDay !== 1 && (
             <button onClick={() => handleDecrement()}>previous day</button>
           )}
-          {currentDay !== numOfDays && currentDay < dontExceedDecDate() && (
+          {currentDay !== numOfDays && currentDay < maxDate && (
             <button onClick={() => handleIncrement()}>next day</button>
           )}
         </div>

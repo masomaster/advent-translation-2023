@@ -8,8 +8,14 @@ export default function AuthPage({ setUser }) {
     <div>
       <h1>Advent Translation</h1>
       <div className="tagline">
-        One Hebrew and one Greek verse for you to translate each day of Advent
+        One Hebrew and one Greek verse for you to translate each day of Advent.
       </div>
+      <p>
+        Come back each day until Christmas for a new set of verses. Feel free to
+        skip days or do just one verse. The first day is unlocked before
+        December to give you a sample. This is an early release, so I'd
+        appreciate your feedback (click "give feedback" once logged in).{" "}
+      </p>
     </div>
   );
   function handleToggle() {

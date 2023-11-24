@@ -7,28 +7,40 @@ import Home from "../Home/Home";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
-  const [currentDay, setCurrentDay] = useState(user?.latestDay || 1);
-  const [languageIsHebrew, setLanguageIsHebrew] = useState(true);
+  const [currentDay, setCurrentDay] = useState(1);
+  const [maxDate, setMaxDate] = useState(1);
 
-  // Toggle first boolean below to manually set it to production mode
-  const isProduction =
-    false || (new Date().getMonth === 1 && new Date().getFullYear === 2023)
-      ? true
-      : false;
+  // Toggle to manually set it to production mode
+  const isProduction = true;
 
   useEffect(() => {
     if (isProduction) {
-      // I don't want it to check if it's actually December right now. I want to be able to test as if it were December. See below.
-      const currentDate = new Date().getDate();
-      setCurrentDay(currentDate);
-      // If it's December, set current day to today's date
-      // const isDecember = new Date().getMonth() === 11;
-      // const currentDecDate = isDecember ? new Date().getDate() : 1;
-      // setCurrentDay(isDecember ? currentDecDate : 1);
-      // Alternative: set user to latest day for which they've submitted a translation:
-      // setCurrentDay(Math.min(user?.latestDay || 1, currentDecDate));
+      calculateMaxDate();
+    } else {
+      setMaxDate(25);
     }
-  }, [isProduction]);
+  });
+
+  // Determine how many days a user can see
+  function calculateMaxDate() {
+    const currentDate = new Date().getDate();
+    const currentYear = new Date().getFullYear();
+    const isDecember = new Date().getMonth() === 11;
+    if (isProduction) {
+      // If during Dec '23, set maxDate to current date or 25, whichever is less
+      if (currentYear === 2023 && isDecember) {
+        currentDate < 26 ? setMaxDate(currentDate) : setMaxDate(25);
+      }
+      // If before Dec '23, allow only 1 day
+      if (currentYear === 2023 && !isDecember) {
+        setMaxDate(1);
+      }
+      // If after Dec '23, allow all 25 days
+      if (currentYear > 2023) {
+        setMaxDate(25);
+      }
+    }
+  }
 
   return (
     <main className="App">
@@ -39,16 +51,13 @@ export default function App() {
             setUser={setUser}
             currentDay={currentDay}
             setCurrentDay={setCurrentDay}
-            isProduction={isProduction}
-            setLanguageIsHebrew={setLanguageIsHebrew}
+            maxDate={maxDate}
           />
           <Home
             user={user}
             currentDay={currentDay}
             setCurrentDay={setCurrentDay}
-            isProduction={isProduction}
-            languageIsHebrew={languageIsHebrew}
-            setLanguageIsHebrew={setLanguageIsHebrew}
+            maxDate={maxDate}
           />
         </>
       ) : (

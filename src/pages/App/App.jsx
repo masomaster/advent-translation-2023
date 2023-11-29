@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUser } from "../../utilities/users-service";
+import { Analytics } from "@vercel/analytics/react";
 
 import NavBar from "../../components/NavBar/NavBar";
 import AuthPage from "../AuthPage/AuthPage";
@@ -44,6 +45,7 @@ export default function App() {
 
   return (
     <main className="App">
+      <Analytics />
       {user ? (
         <>
           <NavBar

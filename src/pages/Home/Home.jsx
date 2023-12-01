@@ -51,6 +51,19 @@ export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
           )}
         </div>
       </div>
+      <div className="footer">
+        <div>
+          <a href="http://eepurl.com/iFf576" target="_blank">
+            Sign up for daily emails
+          </a>
+        </div>
+        <div>
+          Created with ♡ by{" "}
+          <a href="https://masonlancaster.com/" target="_blank">
+            Mason Lancaster
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

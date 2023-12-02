@@ -4,8 +4,8 @@ export default function DoneForDay() {
       <h3>🎉 Congratulations! 🎉</h3>
       <h6>You're done for the day!</h6>
       <h6>
-        Rest easy and look forward more of the joy of Hebrew, Greek, and the
-        Bible tomorrow! 🤓
+        Rest easy and look forward to more Hebrew and Greek translating joy
+        tomorrow! 🤓
       </h6>
     </div>
   );

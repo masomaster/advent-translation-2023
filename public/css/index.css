@@ -10,10 +10,6 @@ body {
   color: #73a580;
 }
 
-.tagline {
-  font-weight: bold;
-}
-
 nav {
   display: flex;
   justify-content: space-between;
@@ -288,6 +284,16 @@ button:hover {
   height: 0px;
 }
 
+.done {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.done h3 {
+  color: #73a580;
+  margin-bottom: 30px;
+}
+
 .footer {
   text-align: center;
   margin-top: 20px;
@@ -296,6 +302,9 @@ button:hover {
 @media (min-width: 750px) {
   body {
     margin: 15px;
+  }
+
+  #home {
     width: 750px;
   }
 
@@ -348,6 +357,7 @@ button:hover {
 
   .day-buttons {
     display: flex;
+    /* flex-wrap: wrap; */
     justify-content: space-between;
     gap: 20px;
     width: 100%;

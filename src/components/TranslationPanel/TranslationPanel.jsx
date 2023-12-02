@@ -8,6 +8,7 @@ export default function TranslationPanel({
   currentDay,
   languageIsHebrew,
   setLanguageIsHebrew,
+  setDone,
 }) {
   /* STATES AND VARIABLES */
   const [translation, setTranslation] = useState("");
@@ -79,6 +80,11 @@ export default function TranslationPanel({
     }
   }
 
+  async function handleDone(evt) {
+    await handleSubmit(evt);
+    setDone(true);
+  }
+
   return (
     <div>
       <div className="verse-text">
@@ -128,7 +134,7 @@ export default function TranslationPanel({
             <button onClick={handleLanguageSwitch}>Back to Hebrew</button>
           )}
           {!languageIsHebrew && (
-            <button onSubmit={handleSubmit}>Done for the Day!</button>
+            <button onClick={handleDone}>Done for the Day!</button>
           )}
         </div>
       </div>

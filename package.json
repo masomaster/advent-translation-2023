@@ -6,8 +6,9 @@
   "scripts": {
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "node server.js",
-    "start-client": "react-scripts start"
+    "start": "node server.js",
+    "start-client": "react-scripts start",
+    "start-server": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.2",
     "morgan": "^1.10.0",
+    "openai": "^4.68.4",
     "react-dom": "^18.2.0",
     "react-hover": "^3.0.1",
     "react-router-dom": "^6.27.0",

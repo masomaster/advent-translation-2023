@@ -13,6 +13,8 @@ export default function TranslationPanel({
   /* STATES AND VARIABLES */
   const [translation, setTranslation] = useState("");
   const [officialTranslation, setOfficialTranslation] = useState("");
+  const [feedback, setFeedback] = useState("");
+
   const englishCitation = dayData.citation.english;
   let hebrewCitation = "";
   if (languageIsHebrew) hebrewCitation = dayData.citation.hebrew;
@@ -37,20 +39,14 @@ export default function TranslationPanel({
   }, [language, currentDay, languageIsHebrew]);
 
   /* HANDLE FUNCTIONS */
-  // Get official translations of Hebrew (this is definitely something that could be made DRY-er)
+  // Get official translations of Hebrew
   async function handleShowOfficialTranslations() {
     try {
       if (!dayData) return;
-      const officialTranslationResponse = await getOfficialTranslations(
-        englishCitation
-      );
-      if (officialTranslationResponse) {
-        setOfficialTranslation(officialTranslationResponse);
-      } else {
-        setOfficialTranslation("");
-      }
+      const response = await getOfficialTranslations(englishCitation);
+      setOfficialTranslation(response || "");
     } catch (err) {
-      console.log("Error in handleShowOfficialTranslations: ", err);
+      console.log("Error in handleShowOfficialTranslations:", err);
     }
   }
 
@@ -83,6 +79,17 @@ export default function TranslationPanel({
   async function handleDone(evt) {
     await handleSubmit(evt);
     setDone(true);
+  }
+
+  // Gets feedback on translation from OpenAI
+  async function handleGetFeedback() {
+    try {
+      const payload = [translation, englishCitation];
+      const response = await translationsAPI.getTranslationFeedback(payload);
+      setFeedback(response || "");
+    } catch (err) {
+      console.log("Error in handleGetFeedback: ", err);
+    }
   }
 
   return (
@@ -125,18 +132,22 @@ export default function TranslationPanel({
           >
             <button>Get language help at parabible</button>
           </a>
+          <button
+            className="translationFeedback"
+            onClick={() => handleGetFeedback()}
+          >
+            Get Feedback on Your Translation
+          </button>
         </div>
         <div className="progressButtons full-width-buttons other-buttons">
-          {languageIsHebrew && (
-            <button onClick={handleLanguageSwitch}>On to Greek</button>
-          )}
-          {!languageIsHebrew && (
-            <button onClick={handleLanguageSwitch}>Back to Hebrew</button>
-          )}
+          <button onClick={handleLanguageSwitch}>
+            {languageIsHebrew ? "On to Greek" : "Back to Hebrew"}
+          </button>
           {!languageIsHebrew && (
             <button onClick={handleDone}>Done for the Day!</button>
           )}
         </div>
+        <div>{feedback}</div>
       </div>
     </div>
   );

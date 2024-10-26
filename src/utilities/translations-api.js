@@ -13,3 +13,7 @@ export async function getDayTranslations(day) {
 export async function getOfficialTranslations(dayVerses) {
   return sendRequest(`${BASE_URL}/official/${dayVerses}`, "GET");
 }
+
+export async function getTranslationFeedback(translationAndCitation) {
+  return sendRequest(`${BASE_URL}/feedback`, "POST", translationAndCitation);
+}

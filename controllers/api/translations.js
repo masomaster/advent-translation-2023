@@ -1,3 +1,4 @@
+const OpenAI = require("openai");
 const Translation = require("../../models/translation");
 
 module.exports = {
@@ -5,6 +6,7 @@ module.exports = {
   update,
   getDayTranslations,
   getOfficialTranslations,
+  getTranslationFeedback
 };
 
 async function create(req, res) {
@@ -79,3 +81,33 @@ async function getOfficialTranslations(req, res) {
     res.status(400).json(err);
   }
 }
+
+async function getTranslationFeedback(req, res) {
+  const translation = req.body[0];
+  const citation = req.body[1];
+  const message = `For this translation of ${citation}, give feedback on word choice, grammar, and syntax from the original language: "${translation}"`;
+  
+  try {
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "user", content: message }],
+      temperature: 1,
+      max_tokens: 2048,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      response_format: {
+        "type": "text"
+      },
+    });
+    res.json(response.choices[0]["message"]["content"]);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
+

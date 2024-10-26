@@ -15,10 +15,8 @@ Kept it simple to get it off the ground asap:
 - Node.js
 - Express
 
+Hosted on Vercel
+
 ## Getting Started
 
-First, run the development server:
-
-`npm start`
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In order to work on Vercel without refactoring on deployment, `node server.js` launches both the Express server and the react dev client.

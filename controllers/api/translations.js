@@ -73,7 +73,7 @@ async function getOfficialTranslations(req, res) {
       throw new Error("Failed to fetch official translation");
     }
     const response = await officialTranslationJSON.json();
-    const officialTranslation = response.matchingText[0].text;
+    const officialTranslation = response[0][0].html;
     res.json(officialTranslation);
   } catch (err) {
     res.status(400).json(err);

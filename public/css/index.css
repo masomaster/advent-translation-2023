@@ -23,17 +23,23 @@ h4 {
   color: #73a580;
 }
 
-.verse-text {
+/* .verse-text {
   min-height: 200px;
-}
+} */
 
 .verse-text > p {
   margin-bottom: 1rem;
 }
 
+.form-container {
+  margin-top: 20px;
+}
+
 textarea {
-  height: 150px;
+  height: 50px;
   width: 100%;
+  resize: vertical;
+  overflow: auto;
   box-sizing: border-box;
 }
 
@@ -85,6 +91,10 @@ button:hover {
 
 .hebrew-verse {
   text-align: right;
+}
+
+.heading {
+  font-weight: 700;
 }
 
 /* Everything for hamburger menu */

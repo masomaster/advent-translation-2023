@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as translationsAPI from "../../utilities/translations-api";
 import { getOfficialTranslations } from "../../utilities/translations-api";
+import DOMPurify from 'dompurify';
 
 export default function TranslationPanel({
   dayData,
@@ -9,11 +10,12 @@ export default function TranslationPanel({
   languageIsHebrew,
   setLanguageIsHebrew,
   setDone,
+  feedbackHtml,
+  setFeedbackHtml,
 }) {
   /* STATES AND VARIABLES */
   const [translation, setTranslation] = useState("");
   const [officialTranslation, setOfficialTranslation] = useState("");
-  const [feedback, setFeedback] = useState("");
 
   const englishCitation = dayData.citation.english;
   let hebrewCitation = "";
@@ -39,17 +41,19 @@ export default function TranslationPanel({
   }, [language, currentDay, languageIsHebrew]);
 
   /* HANDLE FUNCTIONS */
-  // Get official translations of Hebrew
+  // Get official NET translations from Parabible API
   async function handleShowOfficialTranslations() {
     try {
       if (!dayData) return;
       const response = await getOfficialTranslations(englishCitation);
-      setOfficialTranslation(response || "");
+      const cleanResponse = DOMPurify.sanitize(response);
+      setOfficialTranslation(cleanResponse || "");
     } catch (err) {
       console.log("Error in handleShowOfficialTranslations:", err);
     }
   }
 
+  // Saves trnslation to database
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
@@ -70,6 +74,7 @@ export default function TranslationPanel({
     evt.preventDefault();
     try {
       await handleSubmit(evt);
+      setFeedbackHtml("");
       setLanguageIsHebrew(!languageIsHebrew);
     } catch (err) {
       console.log("Error in handleLanguageSwitch: ", err);
@@ -78,6 +83,7 @@ export default function TranslationPanel({
 
   async function handleDone(evt) {
     await handleSubmit(evt);
+    setFeedbackHtml("");
     setDone(true);
   }
 
@@ -86,7 +92,8 @@ export default function TranslationPanel({
     try {
       const payload = [translation, englishCitation];
       const response = await translationsAPI.getTranslationFeedback(payload);
-      setFeedback(response || "");
+      const cleanResponse = DOMPurify.sanitize(response);
+      setFeedbackHtml(cleanResponse || "");
     } catch (err) {
       console.log("Error in handleGetFeedback: ", err);
     }
@@ -94,60 +101,78 @@ export default function TranslationPanel({
 
   return (
     <div>
+      {/* The verse and text */}
       <div className="verse-text">
         <p className={language}>{dayData.text}</p>
         <p className={`${language}-verse`}>
           {languageIsHebrew ? `${hebrewCitation} [Heb.]` : englishCitation}
         </p>
-        <p>{officialTranslation} </p>
       </div>
+
+      {/* User's translation */}
       <div className="form-container">
         <form
           autoComplete="off"
           onSubmit={handleSubmit}
           className="full-width-buttons"
         >
-          <label htmlFor="translation">Your translation:</label>
+          <label className="heading" htmlFor="translation">
+            Your Translation
+          </label>
           <textarea
             name="translation"
             value={translation}
             onChange={(e) => setTranslation(e.target.value)}
           />
+
+          {/* Official NET Translation */}
+          <div
+            className="official-translation"
+            dangerouslySetInnerHTML={{ __html: officialTranslation }}
+          />
+
+          {/* Translation Feedback */}
+          <div
+            className="feedback-container"
+            dangerouslySetInnerHTML={{ __html: feedbackHtml }}
+          />
+
+          {/* Buttons */}
+          <div className="full-width-buttons other-buttons">
+            <button
+              className="officialTranslation"
+              onClick={() => handleShowOfficialTranslations()}
+            >
+              Show NET translation
+            </button>
+            <a
+              className="paraBibleLink"
+              href={paraBibleLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <button>Get language help at parabible</button>
+            </a>
+            <button
+              className="translationFeedback"
+              onClick={() => handleGetFeedback()}
+            >
+              Get Feedback on Your Translation
+            </button>
+          </div>
+          <div className="progressButtons full-width-buttons other-buttons">
+            <button onClick={handleLanguageSwitch}>
+              {languageIsHebrew ? "On to Greek" : "Back to Hebrew"}
+            </button>
+            {!languageIsHebrew && (
+              <button onClick={handleDone}>Done for the Day!</button>
+            )}
+          </div>
+
           <button type="submit" id="save">
             save
           </button>
         </form>
-        <div className="full-width-buttons other-buttons">
-          <button
-            className="officialTranslation"
-            onClick={() => handleShowOfficialTranslations()}
-          >
-            Show NET translation
-          </button>
-          <a
-            className="paraBibleLink"
-            href={paraBibleLink}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <button>Get language help at parabible</button>
-          </a>
-          <button
-            className="translationFeedback"
-            onClick={() => handleGetFeedback()}
-          >
-            Get Feedback on Your Translation
-          </button>
-        </div>
-        <div className="progressButtons full-width-buttons other-buttons">
-          <button onClick={handleLanguageSwitch}>
-            {languageIsHebrew ? "On to Greek" : "Back to Hebrew"}
-          </button>
-          {!languageIsHebrew && (
-            <button onClick={handleDone}>Done for the Day!</button>
-          )}
-        </div>
-        <div>{feedback}</div>
       </div>
     </div>
   );

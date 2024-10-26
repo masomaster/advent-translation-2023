@@ -72,8 +72,8 @@ async function getOfficialTranslations(req, res) {
     if (!officialTranslationJSON.ok) {
       throw new Error("Failed to fetch official translation");
     }
-    const response = await officialTranslationJSON.json();
-    const officialTranslation = response[0][0].html;
+    const response = await officialTranslationJSON.json(); // This is an array with each verse as a separate element.
+    const officialTranslation = response.map(subarray => subarray[0].html).join(" ");
     res.json(officialTranslation);
   } catch (err) {
     res.status(400).json(err);

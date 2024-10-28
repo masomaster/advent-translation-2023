@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import * as translationsAPI from "../../utilities/translations-api";
 import { getOfficialTranslations } from "../../utilities/translations-api";
 import DOMPurify from 'dompurify';
@@ -40,6 +40,8 @@ export default function TranslationPanel({
     }
   }, [language, currentDay, languageIsHebrew]);
 
+  const textareaRef = useRef(null);
+
   /* HANDLE FUNCTIONS */
   // Get official NET translations from Parabible API
   async function handleShowOfficialTranslations() {
@@ -52,6 +54,13 @@ export default function TranslationPanel({
       console.log("Error in handleShowOfficialTranslations:", err);
     }
   }
+
+  function handleInput() {
+    // Reset height to allow shrinkage on text deletion
+    textareaRef.current.style.height = 'auto';
+    // Set height to match the scroll height
+    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+  };
 
   // Saves trnslation to database
   async function handleSubmit(evt) {
@@ -123,6 +132,12 @@ export default function TranslationPanel({
             name="translation"
             value={translation}
             onChange={(e) => setTranslation(e.target.value)}
+            {...props}
+            ref={textareaRef}
+            onInput={handleInput}
+            rows={1}  // Optional: Start with a single row
+            style={{ overflow: 'hidden', resize: 'none' }}
+            placeholder="Enter your translation here..."
           />
 
           {/* Official NET Translation */}

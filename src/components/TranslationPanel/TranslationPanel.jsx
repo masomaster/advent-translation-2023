@@ -132,7 +132,6 @@ export default function TranslationPanel({
             name="translation"
             value={translation}
             onChange={(e) => setTranslation(e.target.value)}
-            {...props}
             ref={textareaRef}
             onInput={handleInput}
             rows={1}  // Optional: Start with a single row

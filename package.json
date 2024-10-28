@@ -10,6 +10,7 @@
     "start-client": "react-scripts start",
     "start-server": "nodemon server.js"
   },
+  "proxy": "http://localhost:3001",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -39,7 +40,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ],
-    "proxy": "http://localhost:3001"
+    ]
   }
 }

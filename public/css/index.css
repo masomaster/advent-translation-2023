@@ -23,41 +23,12 @@ h4 {
   color: #73a580;
 }
 
-/* .verse-text {
-  min-height: 200px;
-} */
-
 .verse-text > p {
   margin-bottom: 1rem;
 }
 
-.form-container {
-  margin-top: 20px;
-}
-
-textarea {
-  height: 50px;
-  width: 100%;
-  resize: vertical;
-  overflow: auto;
-  box-sizing: border-box;
-}
-
-form > button {
-  display: block;
-}
-
 button:hover {
   color: white;
-  background-color: #73a580;
-}
-
-.form-container #save {
-  color: white;
-  background-color: #912f40;
-}
-
-.form-container #save:active {
   background-color: #73a580;
 }
 

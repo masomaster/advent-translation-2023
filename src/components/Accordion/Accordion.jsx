@@ -1,41 +1,19 @@
-import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "./Accordion.css";
 
 export default function Accordion({
   title,
-  id,
+  section,
   content,
   isActive,
-    toggleSection,
-    handleShowOfficialTranslations
+  toggleSection,
 }) {
-
-    useEffect(() => {
-        if (isActive("official-translation")) {
-          handleShowOfficialTranslations();
-        }
-        if (isActive("feedback")) {
-          handleGetFeedback();
-        }
-      }, [isActive("official-translation"), isActive("feedback")]);
-
-  function test(id) {
-    console.log("id: ", id);
-    if (isActive(id)) {
-      console.log("is active");
-    }
-    else {
-      console.log("is not active");
-    }
-  }
-
   return (
     <div className="accordion">
-      <p className="heading" onClick={() => toggleSection("official-translation")}>
+      <p className="heading" onClick={() => toggleSection(section)}>
         <span>
-          {isActive({ id }) ? (
+          {isActive(section) ? (
             <FontAwesomeIcon
               icon={faChevronUp}
               style={{ marginRight: "10px" }}
@@ -49,10 +27,10 @@ export default function Accordion({
         </span>
         {title}
       </p>
-      {isActive({ id }) && (
+      {isActive(section) && (
         <div
-          className={id}
-          dangerouslySetInnerHTML={{ __html: { content } }}
+          className={section}
+          dangerouslySetInnerHTML={{ __html: content }}
         />
       )}
     </div>

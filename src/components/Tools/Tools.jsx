@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import * as translationsAPI from "../../utilities/translations-api";
-import DOMPurify from "dompurify";
-import Accordion from "../Accordion/Accordion.jsx";
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt, faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import DOMPurify from "dompurify";
+import * as translationsAPI from "../../utilities/translations-api";
+import Accordion from "../Accordion/Accordion.jsx";
 
 export default function Tools({
   dayData,
@@ -15,9 +15,9 @@ export default function Tools({
   officialTranslation,
   setOfficialTranslation,
   activeSections,
-  setActiveSections
+  setActiveSections,
 }) {
-
+  // Function for toggling accordion sections
   const isActive = (index) => activeSections.includes(index);
   const toggleSection = (index) => {
     setActiveSections((prev) =>
@@ -27,6 +27,7 @@ export default function Tools({
     );
   };
 
+  // Show NET translation and feedback on opening accordion
   useEffect(() => {
     if (isActive("official-translation")) {
       handleShowOfficialTranslations();
@@ -64,67 +65,21 @@ export default function Tools({
 
   return (
     <div>
-      <div className="accordion">
-        <p className="heading" onClick={() => toggleSection("official-translation")}>
-          <span>
-            {isActive("official-translation") ? (
-              <FontAwesomeIcon
-                icon={faChevronUp}
-                style={{ marginRight: "10px" }}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                style={{ marginRight: "10px" }}
-              />
-            )}
-          </span>
-          Show NET Translation
-        </p>
-        {isActive("official-translation") && (
-          <div
-            className="official-translation"
-            dangerouslySetInnerHTML={{ __html: officialTranslation }}
-          />
-        )}
-      </div>
-
-
-
-      <div className="accordion">
-        <p className="heading" onClick={() => toggleSection("feedback")}>
-          <span>
-            {isActive("feedback") ? (
-              <FontAwesomeIcon
-                icon={faChevronUp}
-                style={{ marginRight: "10px" }}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                style={{ marginRight: "10px" }}
-              />
-            )}
-          </span>
-          Get Feedback on Your Translation
-        </p>
-        {isActive("feedback") && (
-      <div
-      className="feedback-container"
-      dangerouslySetInnerHTML={{ __html: feedbackHtml }}
-    />
-        )}
-      </div>
-
-
-      {/* <Accordion
-        title={"Get Feedback on Your Translation"}
-        content={"Your feedback here"}
+      <Accordion
+        isActive={isActive}
+        toggleSection={toggleSection}
+        section={"official-translation"}
+        content={officialTranslation}
+        title={"Show NET Translation"}
       />
-      <div
-        className="feedback-container"
-        dangerouslySetInnerHTML={{ __html: feedbackHtml }}
-      /> */}
+      
+      <Accordion
+        isActive={isActive}
+        toggleSection={toggleSection}
+        section={"feedback"}
+        content={feedbackHtml}
+        title={"Show Feedback on Your Translation"}
+      />
 
       <p className="heading paraBibleLink">
         <a href={paraBibleLink} target="_blank" rel="noreferrer">

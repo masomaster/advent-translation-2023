@@ -4,12 +4,14 @@ export default function SwitchLanguage({
   setDone,
   handleSubmit,
   setFeedbackHtml,
+  setActiveSections
 }) {
   async function handleLanguageSwitch(evt) {
     evt.preventDefault();
     try {
       await handleSubmit(evt);
       setFeedbackHtml("");
+      setActiveSections([]);
       setLanguageIsHebrew(!languageIsHebrew);
     } catch (err) {
       console.log("Error in handleLanguageSwitch: ", err);

@@ -3,6 +3,7 @@ import * as translationsAPI from "../../utilities/translations-api";
 import UsersTranslation from "../UsersTranslation/UsersTranslation.jsx";
 import Tools from "../Tools/Tools.jsx";
 import SwitchLanguage from "../SwitchLanguage/SwitchLanguage.jsx";
+import Accordion from "../Accordion/Accordion.jsx";
 
 export default function TranslationPanel({
   dayData,
@@ -13,6 +14,10 @@ export default function TranslationPanel({
   setDone,
   feedbackHtml,
   setFeedbackHtml,
+  activeSections,
+  setActiveSections,
+  toggleSection,
+  isActive
 }) {
   /* STATES AND VARIABLES */
   const [translation, setTranslation] = useState("");
@@ -64,6 +69,8 @@ export default function TranslationPanel({
         handleSubmit={handleSubmit}
       />
 
+      {/* <Accordion title={"Show NET Translation"} content={"Net translation here"} /> */}
+
       <Tools
         dayData={dayData}
         englishCitation={englishCitation}
@@ -73,6 +80,10 @@ export default function TranslationPanel({
         feedbackHtml={feedbackHtml}
         setFeedbackHtml={setFeedbackHtml}
         paraBibleLink={paraBibleLink}
+        activeSections={activeSections}
+        setActiveSections={setActiveSections}
+        toggleSection={toggleSection}
+        isActive={isActive}
       />
 
       <SwitchLanguage

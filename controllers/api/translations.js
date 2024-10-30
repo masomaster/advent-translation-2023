@@ -79,8 +79,7 @@ async function getOfficialTranslations(req, res) {
       .map((subarray) => subarray[0].html)
       .join(" ");
     const formattedOfficialTranslation = `
-      <p class="heading">NET Translation:</p>
-      <p>${officialTranslation}</p>
+      <p>"${officialTranslation}"</p>
       `;
     res.json(formattedOfficialTranslation);
   } catch (err) {
@@ -121,7 +120,6 @@ async function getTranslationFeedback(req, res) {
 
   // Formats feedback from OpenAI to HTML
   function formatFeedbackToHtml(content) {
-    content = '<p class="heading">Translation Feedback</p>' + content
     content = content.replace(/^###\s(.+)/gm, '<h3>$1</h3>');    
     content = content.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     content = content.replace(/\*(.+?)\*/g, '<em>$1</em>');

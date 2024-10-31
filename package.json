@@ -10,6 +10,7 @@
     "start-client": "react-scripts start",
     "start-server": "nodemon server.js"
   },
+  "proxy": "http://localhost:3001",
   "author": "Mason D. Lancaster",
   "license": "ISC",
   "dependencies": {

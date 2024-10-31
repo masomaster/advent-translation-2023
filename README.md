@@ -33,6 +33,8 @@ To do this, `package.json` includes these:
     "start-server": "nodemon server.js"
   },
 ```
+Be sure to remove  `"proxy": "http://localhost:3001"` from `package.json`
+
 
 ### Development
 But for development, I want the React dev build available for easy updating, but then they run on different ports, so add this to `package.json`:

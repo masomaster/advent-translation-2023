@@ -23,28 +23,8 @@ h4 {
   color: #73a580;
 }
 
-/* .verse-text {
-  min-height: 200px;
-} */
-
 .verse-text > p {
   margin-bottom: 1rem;
-}
-
-.form-container {
-  margin-top: 20px;
-}
-
-textarea {
-  height: 50px;
-  width: 100%;
-  resize: vertical;
-  overflow: auto;
-  box-sizing: border-box;
-}
-
-form > button {
-  display: block;
 }
 
 button:hover {
@@ -52,16 +32,7 @@ button:hover {
   background-color: #73a580;
 }
 
-.form-container #save {
-  color: white;
-  background-color: #912f40;
-}
-
-.form-container #save:active {
-  background-color: #73a580;
-}
-
-.full-width-buttons button {
+.full-width-buttons > button {
   width: 100%;
 }
 
@@ -74,9 +45,14 @@ button:hover {
 }
 
 .paraBibleLink a {
-  color: #555;
+  color: #222;
   text-decoration: none;
 }
+
+.paraBibleLink a:hover {
+  color: #73a580;
+}
+
 
 .hebrew {
   font-family: "Frank Ruhl Libre", Helvetica, Arial, Times, serif;

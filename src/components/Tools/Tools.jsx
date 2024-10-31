@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faExternalLinkAlt,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { Tooltip } from "react-tooltip";
 import DOMPurify from "dompurify";
 import * as translationsAPI from "../../utilities/translations-api";
 import Accordion from "../Accordion/Accordion.jsx";
@@ -26,6 +30,19 @@ export default function Tools({
         : [...prev, index]
     );
   };
+  const infoButton = (
+    <>
+      <FontAwesomeIcon aria-hidden="false"
+        icon={faInfoCircle}
+        style={{ marginLeft: "10px" }}
+        data-tooltip-id="info"
+        data-tooltip-html={`We use OpenAI's ChatGPT to generate feedback <br />strictly on word choice, grammar, and syntax.<br />No personal data is shared or stored.`}
+        data-tooltip-place="top"
+        data-tooltip-wrapper="span"
+      />
+      <Tooltip id="info" style={{ textAlign: "center" }} />
+    </>
+  );
 
   // Show NET translation and feedback on opening accordion
   useEffect(() => {
@@ -72,13 +89,13 @@ export default function Tools({
         content={officialTranslation}
         title={"Show NET Translation"}
       />
-      
+
       <Accordion
         isActive={isActive}
         toggleSection={toggleSection}
         section={"feedback"}
         content={feedbackHtml}
-        title={"Show Feedback on Your Translation"}
+        title={<>Show Feedback on Your Translation {infoButton}</>}
       />
 
       <p className="heading paraBibleLink">

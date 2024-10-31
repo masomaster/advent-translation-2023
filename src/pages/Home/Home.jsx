@@ -8,7 +8,17 @@ export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
   // Return verse info for the current day and language
   const dayData = languageIsHebrew ? days[currentDay].OT : days[currentDay].NT;
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
+  const [feedbackHtml, setFeedbackHtml] = useState("");
   const [done, setDone] = useState(false);
+  const [activeSections, setActiveSections] = useState([]);
+  const isActive = (index) => activeSections.includes(index);
+  const toggleSection = (index) =>{
+    setActiveSections((prev) =>
+      prev.includes(index)
+        ? prev.filter((sectionIndex) => sectionIndex !== index)
+        : [...prev, index]
+    );
+  };
 
   useEffect(() => {
     window.scrollTo({
@@ -22,12 +32,16 @@ export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
     if (currentDay < numOfDays) {
       setCurrentDay(currentDay + 1);
       setLanguageIsHebrew(true);
+      setFeedbackHtml("");
+      setActiveSections([]);
     }
   }
   function handleDecrement() {
     if (currentDay > 1) {
       setCurrentDay(currentDay - 1);
       setLanguageIsHebrew(true);
+      setFeedbackHtml("");
+      setActiveSections([]);
     }
   }
 
@@ -48,6 +62,12 @@ export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
               setLanguageIsHebrew={setLanguageIsHebrew}
               dayData={dayData}
               setDone={setDone}
+              feedbackHtml={feedbackHtml}
+              setFeedbackHtml={setFeedbackHtml}
+              activeSections={activeSections}
+              setActiveSections={setActiveSections}
+              toggleSection={toggleSection}
+              isActive={isActive}
             />
             <div className="day-buttons">
               {currentDay !== 1 && (

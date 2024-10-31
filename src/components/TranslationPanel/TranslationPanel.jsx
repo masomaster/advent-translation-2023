@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as translationsAPI from "../../utilities/translations-api";
-import { getOfficialTranslations } from "../../utilities/translations-api";
+import UsersTranslation from "../UsersTranslation/UsersTranslation.jsx";
+import Tools from "../Tools/Tools.jsx";
+import SwitchLanguage from "../SwitchLanguage/SwitchLanguage.jsx";
 
 export default function TranslationPanel({
   dayData,
@@ -9,6 +11,12 @@ export default function TranslationPanel({
   languageIsHebrew,
   setLanguageIsHebrew,
   setDone,
+  feedbackHtml,
+  setFeedbackHtml,
+  activeSections,
+  setActiveSections,
+  toggleSection,
+  isActive
 }) {
   /* STATES AND VARIABLES */
   const [translation, setTranslation] = useState("");
@@ -16,44 +24,13 @@ export default function TranslationPanel({
   const englishCitation = dayData.citation.english;
   let hebrewCitation = "";
   if (languageIsHebrew) hebrewCitation = dayData.citation.hebrew;
+  const language = languageIsHebrew ? "hebrew" : "greek";
   const paraBibleLink = `https://parabible.com/${
     languageIsHebrew ? hebrewCitation : englishCitation
   }`;
-  const language = languageIsHebrew ? "hebrew" : "greek";
-
-  // /* USE EFFECTS */
-  // When day changes, either load any existing translations or clear the form
-  useEffect(() => {
-    try {
-      translationsAPI.getDayTranslations(currentDay).then((translations) => {
-        if (translations && translations[language])
-          setTranslation(translations[language]);
-        else setTranslation("");
-        setOfficialTranslation("");
-      });
-    } catch (err) {
-      console.log("Error in useEffect: ", err);
-    }
-  }, [language, currentDay, languageIsHebrew]);
 
   /* HANDLE FUNCTIONS */
-  // Get official translations of Hebrew (this is definitely something that could be made DRY-er)
-  async function handleShowOfficialTranslations() {
-    try {
-      if (!dayData) return;
-      const officialTranslationResponse = await getOfficialTranslations(
-        englishCitation
-      );
-      if (officialTranslationResponse) {
-        setOfficialTranslation(officialTranslationResponse);
-      } else {
-        setOfficialTranslation("");
-      }
-    } catch (err) {
-      console.log("Error in handleShowOfficialTranslations: ", err);
-    }
-  }
-
+  // Saves translation to database
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
@@ -70,74 +47,50 @@ export default function TranslationPanel({
     }
   }
 
-  async function handleLanguageSwitch(evt) {
-    evt.preventDefault();
-    try {
-      await handleSubmit(evt);
-      setLanguageIsHebrew(!languageIsHebrew);
-    } catch (err) {
-      console.log("Error in handleLanguageSwitch: ", err);
-    }
-  }
-
-  async function handleDone(evt) {
-    await handleSubmit(evt);
-    setDone(true);
-  }
-
   return (
     <div>
+      {/* The verse and text */}
       <div className="verse-text">
         <p className={language}>{dayData.text}</p>
         <p className={`${language}-verse`}>
           {languageIsHebrew ? `${hebrewCitation} [Heb.]` : englishCitation}
         </p>
-        <p>{officialTranslation} </p>
       </div>
-      <div className="form-container">
-        <form
-          autoComplete="off"
-          onSubmit={handleSubmit}
-          className="full-width-buttons"
-        >
-          <label htmlFor="translation">Your translation:</label>
-          <textarea
-            name="translation"
-            value={translation}
-            onChange={(e) => setTranslation(e.target.value)}
-          />
-          <button type="submit" id="save">
-            save
-          </button>
-        </form>
-        <div className="full-width-buttons other-buttons">
-          <button
-            className="officialTranslation"
-            onClick={() => handleShowOfficialTranslations()}
-          >
-            Show NET translation
-          </button>
-          <a
-            className="paraBibleLink"
-            href={paraBibleLink}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <button>Get language help at parabible</button>
-          </a>
-        </div>
-        <div className="progressButtons full-width-buttons other-buttons">
-          {languageIsHebrew && (
-            <button onClick={handleLanguageSwitch}>On to Greek</button>
-          )}
-          {!languageIsHebrew && (
-            <button onClick={handleLanguageSwitch}>Back to Hebrew</button>
-          )}
-          {!languageIsHebrew && (
-            <button onClick={handleDone}>Done for the Day!</button>
-          )}
-        </div>
-      </div>
+
+      <UsersTranslation
+        user={user}
+        currentDay={currentDay}
+        language={language}
+        languageIsHebrew={languageIsHebrew}
+        translation={translation}
+        setTranslation={setTranslation}
+        setOfficialTranslation={setOfficialTranslation}
+        handleSubmit={handleSubmit}
+      />
+      
+      <Tools
+        dayData={dayData}
+        englishCitation={englishCitation}
+        officialTranslation={officialTranslation}
+        setOfficialTranslation={setOfficialTranslation}
+        translation={translation}
+        feedbackHtml={feedbackHtml}
+        setFeedbackHtml={setFeedbackHtml}
+        paraBibleLink={paraBibleLink}
+        activeSections={activeSections}
+        setActiveSections={setActiveSections}
+        toggleSection={toggleSection}
+        isActive={isActive}
+      />
+
+      <SwitchLanguage
+        languageIsHebrew={languageIsHebrew}
+        setLanguageIsHebrew={setLanguageIsHebrew}
+        setDone={setDone}
+        handleSubmit={handleSubmit}
+        setFeedbackHtml={setFeedbackHtml}
+        setActiveSections={setActiveSections}
+      />
     </div>
   );
 }

@@ -1,0 +1,22 @@
+.form-container {
+  margin-top: 20px;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form > div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-container #save {
+    color: white;
+    background-color: #912f40;
+  }
+  
+  .form-container #save:active {
+    background-color: #73a580;
+  }

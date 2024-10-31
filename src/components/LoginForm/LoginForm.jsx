@@ -47,12 +47,12 @@ export default function LoginForm({ setUser, handleToggle }) {
             onChange={handleChange}
             required
           />
-          <button type="submit">LOG IN</button>
+          <button type="submit">Enter</button>
         </form>
       </div>
-      <Link to="" onClick={handleToggle}>
-        Sign up!
-      </Link>
+      <div className="sign-up-toggle" ><Link className="sign-up-toggle" to="" onClick={handleToggle}>
+        No account? Sign up!
+      </Link></div>
       <p className="error-message">&nbsp;{error}</p>
     </div>
   );

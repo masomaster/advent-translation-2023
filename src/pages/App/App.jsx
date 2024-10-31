@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getUser } from "../../utilities/users-service";
 
 import NavBar from "../../components/NavBar/NavBar";
@@ -28,44 +28,10 @@ export default function App() {
     } else return 25;
   }
 
-  // Toggle to manually set App to production mode
-  // const isProduction = true;
-  // OLD VERSION FOR TESTING
-  // If not in production mode, allow all days accessible for testing
-  // useEffect(() => {
-  //   if (isProduction) {
-  //     setMaxDate(returnInitialMaxDate());
-  //   } else {
-  //     setMaxDate(25);
-  //   }
-  // });
-
-  // OLD VERSION FOR TESTING
-  // Determine how many days a user can see
-  // function calculateMaxDate() {
-  //   const currentDate = new Date().getDate();
-  //   const currentYear = new Date().getFullYear();
-  //   const isDecember = new Date().getMonth() === 11;
-  //   if (isProduction) {
-  //     // If during Dec '23, set maxDate to currentDate or 25, whichever is less
-  //     if (currentYear === 2023 && isDecember) {
-  //       currentDate < 26 ? setMaxDate(currentDate) : setMaxDate(25);
-  //     }
-  //     // If before Dec '23, allow only 1 day
-  //     if (currentYear === 2023 && !isDecember) {
-  //       setMaxDate(1);
-  //     }
-  //     // If after Dec '23, allow all 25 days
-  //     if (currentYear > 2023) {
-  //       setMaxDate(25);
-  //     }
-  //   } else setMaxDate(25);
-  // }
-
   return (
     <main className="App">
       {user ? (
-        <>
+        <div className="logged-in">
           <NavBar
             user={user}
             setUser={setUser}
@@ -79,7 +45,7 @@ export default function App() {
             setCurrentDay={setCurrentDay}
             maxDate={maxDate}
           />
-        </>
+        </div>
       ) : (
         <AuthPage setUser={setUser} />
       )}

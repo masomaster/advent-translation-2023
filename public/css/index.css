@@ -5,9 +5,16 @@ body {
   margin: 40px;
 }
 
-.auth-page h3 {
-  margin-top: 80px;
-  color: #73a580;
+.logged-in {
+    font-family: sans-serif; /* 1 */
+    -ms-text-size-adjust: 100%; /* 2 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+    max-width: 1050px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 30px;
 }
 
 nav {
@@ -53,7 +60,6 @@ button:hover {
   color: #73a580;
 }
 
-
 .hebrew {
   font-family: "Frank Ruhl Libre", Helvetica, Arial, Times, serif;
   font-size: x-large;
@@ -73,6 +79,21 @@ button:hover {
   font-weight: 700;
 }
 
+.done {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.done h3 {
+  color: #73a580;
+  margin-bottom: 30px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
 /* Everything for hamburger menu */
 
 * {
@@ -89,6 +110,7 @@ button:hover {
 
 .navbar {
   width: 100%;
+  /* padding: 0 30px; */
 }
 
 .nav-container {
@@ -270,28 +292,23 @@ button:hover {
   height: 0px;
 }
 
-.done {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.done h3 {
-  color: #73a580;
-  margin-bottom: 30px;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 20px;
-}
-
 @media (min-width: 750px) {
   body {
     margin: 15px;
   }
 
-  #home {
+  .logged-in {
+    /* padding: 30px; */
     width: 750px;
+  }
+
+  .navbar {
+    width: 100%;
+    /* padding: 0 30px; */
+  }
+
+  #home {
+    width: 100%;
   }
 
   .original-language {

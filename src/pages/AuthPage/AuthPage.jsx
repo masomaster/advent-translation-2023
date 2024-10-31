@@ -1,42 +1,51 @@
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { useState } from "react";
+import "./AuthPage.css";
 
 export default function AuthPage({ setUser }) {
   const [login, setLogin] = useState(true);
+
   const splash = (
-    <div>
-      <h1>Advent Translation</h1>
-      <div className="tagline">
-        One Hebrew and one Greek verse for you to translate each day of Advent.
-      </div>
+    <div className="splash background">
       <p>
-        Come back each day until Christmas for a new set of verses. Feel free to
-        skip days or do just one verse. The first day is unlocked before
-        December to give you a sample. This is an early release, so I'd
-        appreciate your feedback (click "give feedback" once logged in).{" "}
+        Translate one Hebrew and one Greek verse each day of Advent.
       </p>
+      <div>
+        <h6>Help with Hebrew and Greek</h6>
+        <p>Access parsing information and word definitions through Parabible.</p>
+        <h6>Compare Translations</h6>
+        <p>View original text and modern translation side by side to catch every nuance.</p>
+        <h6>Real-Time Feedback</h6>
+        <p>Receive detailed, language-specific feedback on word choice, grammar, and syntax.</p>
+        <h6>Personalized Learning </h6>
+        <p>Track your progress and dive deeper into the areas that interest you most.</p>
+      </div>
     </div>
   );
+
   function handleToggle() {
     setLogin(!login);
   }
 
   return (
     <main className="auth-page">
-      {login ? (
-        <>
-          {splash}
-          <h3>Log In</h3>
+      {/* <div className="text-container"> */}
+      <div className="title-section">
+      <h1>Advent Translation</h1>
+      <p className="tagline">
+        Unlock deeper biblical understanding with guided insights.
+      </p>
+      </div>
+      {splash}
+      <div className="auth-container background">
+        {login ? (
           <LoginForm setUser={setUser} handleToggle={handleToggle} />
-        </>
-      ) : (
-        <>
-          {splash}
-          <h3>Sign Up</h3>
+        ) : (
           <SignUpForm setUser={setUser} handleToggle={handleToggle} />
-        </>
-      )}
+        )}
+      </div>
+      {/* </div> */}
     </main>
   );
 }

@@ -94,9 +94,9 @@ export default function SignUpForm({ setUser, handleToggle }) {
           </button>
         </form>
       </div>
-      <Link to="" onClick={handleToggle}>
-        Log In!
-      </Link>
+      <div className="sign-up-toggle" ><Link className="sign-up-toggle" to="" onClick={handleToggle}>
+        Already have an account? Log In!
+      </Link></div>
       <p className="error-message">&nbsp;{signUpForm.error}</p>
     </div>
   );

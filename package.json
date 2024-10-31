@@ -1,7 +1,7 @@
 {
-  "name": "advent-translation-2023",
-  "version": "1.0.0",
-  "description": "",
+  "name": "advent-translation-2024",
+  "version": "2.0.0",
+  "description": "One Hebrew and one Greek verse to translate each day of Advent.",
   "main": "server.js",
   "scripts": {
     "build": "react-scripts build",
@@ -11,7 +11,7 @@
     "start-server": "nodemon server.js"
   },
   "proxy": "http://localhost:3001",
-  "author": "",
+  "author": "Mason D. Lancaster",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
@@ -28,7 +28,6 @@
     "morgan": "^1.10.0",
     "openai": "^4.68.4",
     "react-dom": "^18.2.0",
-    "react-hover": "^3.0.1",
     "react-router-dom": "^6.27.0",
     "react-scripts": "^5.0.1",
     "react-tooltip": "^5.28.0",

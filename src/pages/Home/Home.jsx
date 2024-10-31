@@ -13,7 +13,6 @@ export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
   const [activeSections, setActiveSections] = useState([]);
   const isActive = (index) => activeSections.includes(index);
   const toggleSection = (index) =>{
-    console.log(activeSections)
     setActiveSections((prev) =>
       prev.includes(index)
         ? prev.filter((sectionIndex) => sectionIndex !== index)

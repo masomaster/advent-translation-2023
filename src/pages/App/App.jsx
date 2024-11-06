@@ -2,8 +2,8 @@ import { useState } from "react";
 import { getUser } from "../../utilities/users-service";
 
 import NavBar from "../../components/NavBar/NavBar";
-import AuthPage from "../AuthPage/AuthPage";
-import Home from "../Home/Home";
+import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
+import HomePage from "../HomePage/HomePage";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -39,7 +39,7 @@ export default function App() {
             setCurrentDay={setCurrentDay}
             maxDate={maxDate}
           />
-          <Home
+          <TranslationPanel
             user={user}
             currentDay={currentDay}
             setCurrentDay={setCurrentDay}
@@ -47,7 +47,7 @@ export default function App() {
           />
         </div>
       ) : (
-        <AuthPage setUser={setUser} />
+        <HomePage setUser={setUser}/>
       )}
     </main>
   );

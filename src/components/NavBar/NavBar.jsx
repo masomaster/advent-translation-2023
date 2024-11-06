@@ -41,13 +41,6 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
         </div>
         <div className="logo">
           <h3>Advent Translation</h3>
-          <a
-            href="https://forms.gle/QrqjwfmWVVzmYpPd7"
-            target="_blank"
-            rel="noreferrer"
-          >
-            This is an early release. Give Feedback!
-          </a>
         </div>
         <div className="menu-items">
           <li id="welcome" onClick={() => setChecked(false)}>

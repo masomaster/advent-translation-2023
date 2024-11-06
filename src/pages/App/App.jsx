@@ -47,7 +47,7 @@ export default function App() {
           />
         </div>
       ) : (
-        <HomePage setUser={setUser}/>
+        <HomePage user={user} setUser={setUser}/>
       )}
     </main>
   );

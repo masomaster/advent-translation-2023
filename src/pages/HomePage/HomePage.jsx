@@ -1,10 +1,10 @@
 import Header from '../../components/HomePageComponents/Header';
 import Hero from '../../components/HomePageComponents/Hero';
 import FeatureSection from '../../components/HomePageComponents/FeatureSection';
-import Footer from '../../components/HomePageComponents/Footer';
+import Footer from '../../components/Footer/Footer';
 import './HomePage.css';
 
-export default function HomePage({ setUser }) {
+export default function HomePage({ user, setUser }) {
 
   return (
     <div className="homepage-container">
@@ -13,7 +13,7 @@ export default function HomePage({ setUser }) {
         <Hero setUser={setUser} />
         <FeatureSection />
       </main>
-      <Footer />
+      <Footer user={user} />
     </div>
   );
 }

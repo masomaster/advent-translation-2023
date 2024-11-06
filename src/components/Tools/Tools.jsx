@@ -71,6 +71,7 @@ export default function Tools({
   // Gets feedback on translation from OpenAI
   async function handleGetFeedback() {
     try {
+      setFeedbackHtml(`<p>Analyzing your translation...</p>`);
       const payload = [translation, englishCitation];
       const response = await translationsAPI.getTranslationFeedback(payload);
       const cleanResponse = DOMPurify.sanitize(response);
@@ -95,7 +96,8 @@ export default function Tools({
         toggleSection={toggleSection}
         section={"feedback"}
         content={feedbackHtml}
-        title={<>Show Feedback on Your Translation {infoButton}</>}
+        title={"Show Feedback on Your Translation"}
+        infoButton={infoButton}
       />
 
       <p className="heading paraBibleLink">

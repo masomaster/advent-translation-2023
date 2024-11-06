@@ -8,11 +8,12 @@ export default function Accordion({
   content,
   isActive,
   toggleSection,
+  infoButton,
 }) {
   return (
     <div className="accordion">
-      <p className="heading" onClick={() => toggleSection(section)}>
-        <span>
+      <p>
+        <span className="heading" onClick={() => toggleSection(section)}>
           {isActive(section) ? (
             <FontAwesomeIcon
               icon={faChevronUp}
@@ -24,8 +25,9 @@ export default function Accordion({
               style={{ marginRight: "10px" }}
             />
           )}
+          {title}
         </span>
-        {title}
+        <span>{infoButton}</span>{" "}
       </p>
       {isActive(section) && (
         <div

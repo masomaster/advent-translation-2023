@@ -7,7 +7,7 @@ import UsersTranslation from "../UsersTranslation/UsersTranslation.jsx";
 import Tools from "../Tools/Tools.jsx";
 import SwitchLanguage from "../SwitchLanguage/SwitchLanguage.jsx";
 import DoneForDay from "../../components/DoneForDay/DoneForDay";
-import Footer from "../HomePageComponents/Footer.jsx";
+import Footer from "../Footer/Footer.jsx";
 
 export default function TranslationPanel({
   user,
@@ -95,10 +95,17 @@ export default function TranslationPanel({
             maxDate={maxDate}
             currentDay={currentDay}
             handleDecrement={handleDecrement}
+            handleIncrement={handleIncrement}
+            languageIsHebrew={languageIsHebrew}
+            setLanguageIsHebrew={setLanguageIsHebrew}
+            setDone={setDone}
+            handleSubmit={handleSubmit}
+            setFeedbackHtml={setFeedbackHtml}
+            setActiveSections={setActiveSections}
           />
-          <div>
+          {/* <div>
             <h4>December {currentDay}:</h4>
-          </div>
+          </div> */}
           <div>
             <div>
               <VersePanel
@@ -135,17 +142,17 @@ export default function TranslationPanel({
                 isActive={isActive}
               />
 
-              <SwitchLanguage
+              {/* <SwitchLanguage
                 languageIsHebrew={languageIsHebrew}
                 setLanguageIsHebrew={setLanguageIsHebrew}
                 setDone={setDone}
                 handleSubmit={handleSubmit}
                 setFeedbackHtml={setFeedbackHtml}
                 setActiveSections={setActiveSections}
-              />
+              /> */}
             </div>
           </div>
-          <Footer />
+          <Footer user={user} />
         </>
       )}
     </div>

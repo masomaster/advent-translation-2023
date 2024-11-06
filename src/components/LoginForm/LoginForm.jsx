@@ -1,15 +1,19 @@
 import { useState } from "react";
 import * as usersService from "../../utilities/users-service";
-import { Link } from "react-router-dom";
 
-export default function LoginForm({ setUser, handleToggle }) {
+export default function LoginForm({
+  setUser,
+  emailEntered,
+  setEmailEntered,
+  setError
+}) {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
 
   function handleChange(evt) {
+    setEmailEntered(evt.target.value.trim().length > 0);
     setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
     setError("");
   }
@@ -17,43 +21,50 @@ export default function LoginForm({ setUser, handleToggle }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      // The promise returned by the signUp service method
-      // will resolve to the user object included in the
-      // payload of the JSON Web Token (JWT)
       const user = await usersService.login(credentials);
       setUser(user);
-    } catch {
-      setError("Log In Failed - Try Again");
+    } catch (err) {
+      setError("Login Failed: Check your email address and password.");
     }
   }
 
   return (
     <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
+      <form autoComplete="off" onSubmit={handleSubmit}>
+        <label className="text-input">
           <input
             type="text"
             name="email"
+            placeholder="Enter your email address"
+            className={`input-field email ${emailEntered ? "rounded" : ""}`}
             value={credentials.email}
             onChange={handleChange}
             required
           />
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={credentials.password}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit">LOG IN</button>
-        </form>
-      </div>
-      <Link to="" onClick={handleToggle}>
-        Sign up!
-      </Link>
-      <p className="error-message">&nbsp;{error}</p>
+          <button
+            className={`sign-in-btn ${emailEntered ? "fade-out" : "fade-in"}`}
+            tabIndex="-1"
+          >
+            Sign In
+          </button>
+        </label>
+        <div className={`password-container ${emailEntered ? "show" : ""}`}>
+          <label className="text-input">
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              className="input-field"
+              value={credentials.password}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit" className="sign-in-btn">
+              Sign In
+            </button>
+          </label>
+        </div>
+      </form>
     </div>
   );
 }

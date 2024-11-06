@@ -1,0 +1,104 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  color: #333; /* Dark text for better readability */
+  background-color: #f0f0f0; /* Light background for a flat design */
+}
+
+.sticky-login-button {
+  position: sticky;
+  top: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.feature-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.feature-section.left {
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+.feature-section.right {
+  flex-direction: row-reverse;
+}
+
+.feature-section img {
+  width: 50%; /* Adjust as needed for responsiveness */
+  height: auto;
+}
+
+.text-content {
+  padding: 20px;
+  width: 100%; /* Adjust as needed for responsiveness */
+}
+
+.title-section {
+  text-align: center;
+  /* justify-content: center; */
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+
+/* .tagline {
+  margin-bottom: 0;
+} */
+
+.auth-container {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  max-width: 300px;
+  width: 100%;
+  /* padding: 30px; */
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .auth-container input {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.auth-container button {
+  color: white;
+} */
+
+.auth-container .sign-up-toggle {
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (min-width: 750px) {
+  .title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+}

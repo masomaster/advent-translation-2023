@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import * as days from "../../days.json";
 import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
 import DoneForDay from "../../components/DoneForDay/DoneForDay";
+import Footer from "../../components/HomePageComponents/Footer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
   const [languageIsHebrew, setLanguageIsHebrew] = useState(true);
@@ -51,6 +54,14 @@ export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
         <DoneForDay />
       ) : (
         <>
+         <div className="day-buttons">
+              {currentDay !== 1 && (<div onClick={() => handleDecrement()} >
+                <FontAwesomeIcon icon={faArrowLeft} /><span>   previous day</span></div>
+              )}
+              {currentDay !== numOfDays && currentDay < maxDate && (
+                <div onClick={() => handleIncrement()}><span>next day   </span><FontAwesomeIcon icon={faArrowRight} /></div>
+              )}
+            </div>
           <div>
             <h4>December {currentDay}:</h4>
           </div>
@@ -69,36 +80,9 @@ export default function Home({ user, currentDay, setCurrentDay, maxDate }) {
               toggleSection={toggleSection}
               isActive={isActive}
             />
-            <div className="day-buttons">
-              {currentDay !== 1 && (
-                <button onClick={() => handleDecrement()}>previous day</button>
-              )}
-              {currentDay !== numOfDays && currentDay < maxDate && (
-                <button onClick={() => handleIncrement()}>next day</button>
-              )}
-            </div>
+           
           </div>
-          <div className="footer">
-            <div>
-              <a
-                href="http://eepurl.com/iFf576"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Sign up for daily emails
-              </a>
-            </div>
-            <div>
-              Created with ♡ by{" "}
-              <a
-                href="https://masonlancaster.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Mason Lancaster
-              </a>
-            </div>
-          </div>
+          <Footer />
         </>
       )}
     </div>

@@ -1,13 +1,14 @@
 /* Non-Skeleton css unique to this project */
 @import url("https://fonts.googleapis.com/css2?family=Eczar&family=Frank+Ruhl+Libre&display=swap");
 
-body {
-  margin: 40px;
-}
-
-.auth-page h3 {
-  margin-top: 80px;
-  color: #73a580;
+.logged-in {
+    -ms-text-size-adjust: 100%; 
+    -webkit-text-size-adjust: 100%; 
+    max-width: 1050px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 30px;
 }
 
 nav {
@@ -36,11 +37,12 @@ button:hover {
   width: 100%;
 }
 
-.day-buttons {
-  width: 100%;
-}
-
-.day-buttons > button {
+.paraBibleLink {
+  border-width: 0.5px 0 0 0;
+  border-style: solid;
+  border-color: #000;
+  padding: 5px 0;
+  margin: 5px 0;
   width: 100%;
 }
 
@@ -52,7 +54,6 @@ button:hover {
 .paraBibleLink a:hover {
   color: #73a580;
 }
-
 
 .hebrew {
   font-family: "Frank Ruhl Libre", Helvetica, Arial, Times, serif;
@@ -69,8 +70,28 @@ button:hover {
   text-align: right;
 }
 
+.language-btn {
+  text-transform: none; 
+  /* background-color: coral; */
+}
+
 .heading {
   font-weight: 700;
+}
+
+.done {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.done h3 {
+  color: #73a580;
+  margin-bottom: 30px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
 }
 
 /* Everything for hamburger menu */
@@ -89,6 +110,7 @@ button:hover {
 
 .navbar {
   width: 100%;
+  /* padding: 0 30px; */
 }
 
 .nav-container {
@@ -270,28 +292,23 @@ button:hover {
   height: 0px;
 }
 
-.done {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.done h3 {
-  color: #73a580;
-  margin-bottom: 30px;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 20px;
-}
-
 @media (min-width: 750px) {
-  body {
+  /* body {
     margin: 15px;
+  } */
+
+  .logged-in {
+    /* padding: 30px; */
+    width: 750px;
+  }
+
+  .navbar {
+    width: 100%;
+    /* padding: 0 30px; */
   }
 
   #home {
-    width: 750px;
+    width: 100%;
   }
 
   .original-language {
@@ -339,13 +356,5 @@ button:hover {
   .other-buttons > * {
     flex-basis: calc(50% - 10px);
     margin-bottom: 20px;
-  }
-
-  .day-buttons {
-    display: flex;
-    /* flex-wrap: wrap; */
-    justify-content: space-between;
-    gap: 20px;
-    width: 100%;
   }
 }

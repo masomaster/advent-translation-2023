@@ -1,0 +1,96 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  /* overflow: hidden; Prevent any extra scroll bars */
+  box-sizing: border-box;
+}
+
+.auth-page {
+  background: url("../../../public/background.png") no-repeat center center
+    fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: white;
+}
+
+.auth-page a {
+  color: white;
+}
+
+.background {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.title-section {
+  text-align: center;
+}
+
+.splash {
+  text-align: left;
+  max-width: 600px;
+}
+
+.splash h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.splash h6 {
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.splash p,
+.tagline {
+  line-height: 1.5;
+}
+
+.tagline {
+  font-size: 2rem;
+}
+
+.splash p {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.auth-container {
+  max-width: 400px;
+  width: 100%;
+}
+
+.auth-container h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  /* color: #333; */
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-container input {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.auth-container button {
+  color: white;
+}
+
+.auth-container .sign-up-toggle {
+  margin-top: 10px;
+  text-align: center;
+}

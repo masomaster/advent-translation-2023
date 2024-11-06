@@ -18,16 +18,13 @@ async function create(req, res) {
     if (existingTranslation) {
       return update(req, res);
     }
-    console.log("req.body: ", req.body);
     if (req.body.hebrew && !req.body.greek) {
       req.body.greek = "";
     }
     if (req.body.greek && !req.body.hebrew) {
       req.body.hebrew = "";
     }
-    console.log("req.body: ", req.body);
     const dayTranslations = await Translation.create(req.body);
-    console.log("dayTranslations: ", dayTranslations);
     res.json(dayTranslations);
   } catch (err) {
     res.status(400).json(err);

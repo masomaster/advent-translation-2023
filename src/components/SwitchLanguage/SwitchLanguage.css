@@ -3,7 +3,7 @@
   border: 1px solid #ddd;
   border-radius: 30px;
   overflow: hidden;
-  width: 100px;
+  width: 200px;
 }
 
 .toggle-option {
@@ -20,6 +20,8 @@
 .toggle-option.selected {
   background-color: #73a580;
   color: white;
+  border-radius: 30px; /* Apply rounded corners to the selected side */
+
 }
 
 .toggle-option:not(.selected):hover {

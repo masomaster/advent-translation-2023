@@ -32,13 +32,13 @@ export default function SwitchLanguage({
         className={`toggle-option ${languageIsHebrew ? "selected" : ""}`}
         onClick={handleLanguageSwitch}
       >
-        א
+        Hebrew
       </div>
       <div
         className={`toggle-option ${!languageIsHebrew ? "selected" : ""}`}
         onClick={handleLanguageSwitch}
       >
-        α
+        Greek
       </div>
     </div>
     // NOTE TO SELF: I WANT TO MAKE THIS A TOGGLE PANEL, WITH HEBREW/GREEK ON EITHER SIDE.

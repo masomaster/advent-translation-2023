@@ -43,7 +43,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 50vh;
+  height: 55vh;
   transition: height 0.5s ease, padding 0.5s ease;
 }
 .hero-bigger {
@@ -185,7 +185,7 @@ form {
 }
 
 /* Media Queries */
-@media screen and (max-width: 400px) {
+@media (max-width: 400px) {
   .features {
     display: flex;
     flex-direction: column;

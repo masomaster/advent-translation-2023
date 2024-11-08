@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { signUp } from "../../utilities/users-service";
+// import { signUp } from "../../utilities/users-service";
+import { emailSignUp } from "../../utilities/firebase";
 
 export default function SignUpForm({ setUser, setError }) {
   const [signUpForm, setSignUpForm] = useState({
@@ -25,6 +26,13 @@ export default function SignUpForm({ setUser, setError }) {
       setError("Passwords Must Match");
       return;
     }
+    const response = await emailSignUp(signUpForm.email, signUpForm.password);
+    if (response === "Email already in use") {
+      setError("Email already in use");
+      return;
+    }
+    console.log("Logged in user: ", response);
+    return;
     try {
       const formDataCopy = {
         ...signUpForm,

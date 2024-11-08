@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import * as userService from "../../utilities/users-service";
+import { signOutUser } from "../../utilities/firebase";
 import DayList from "../DayList/DayList";
 
 export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
   const [checked, setChecked] = useState(false);
   const [behind, setBehind] = useState("behind");
 
-  // UseEffect to handle setting behind to true 0.5sec after"checked" state is set to false
+  // UseEffect to handle setting behind to true 0.5sec after "checked" state is set to false
   useEffect(() => {
     if (!checked) {
       setTimeout(() => {
@@ -19,8 +19,7 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
   }, [checked]);
 
   function handleLogOut() {
-    userService.logOut();
-    setUser(null);
+    signOutUser();
   }
 
   return (

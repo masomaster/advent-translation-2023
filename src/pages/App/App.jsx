@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getUser } from "../../utilities/users-service";
+import { onAuthChange } from "../../utilities/firebase";
 
 import NavBar from "../../components/NavBar/NavBar";
 import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
 import HomePage from "../HomePage/HomePage";
 
 export default function App() {
-  const [user, setUser] = useState(getUser());
+  const [user, setUser] = useState(null);
   const [maxDate, setMaxDate] = useState(returnInitialMaxDate());
   const [currentDay, setCurrentDay] = useState(maxDate);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthChange((firebaseUser) => {
+      setUser(firebaseUser || null);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   function returnInitialMaxDate() {
     const currentDate = new Date().getDate();
@@ -30,7 +40,9 @@ export default function App() {
 
   return (
     <main className="App">
-      {user ? (
+      {loading ? (
+      <p>Loading...</p>
+    ) : user ? (
         <div className="logged-in">
           <NavBar
             user={user}
@@ -47,7 +59,7 @@ export default function App() {
           />
         </div>
       ) : (
-        <HomePage user={user} setUser={setUser}/>
+        <HomePage user={user} setUser={setUser} />
       )}
     </main>
   );

@@ -1,18 +1,23 @@
-import { getToken } from "./users-service";
+import { getAuth } from "firebase/auth";
 
 export default async function sendRequest(url, method = 'GET', payload = null) {
     const options = { method };
+    
     if (payload) {
         options.headers = { 'Content-Type': 'application/json' };
         options.body = JSON.stringify(payload);
     }
-    const token = getToken();
-    if (token) {
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+        const idToken = await user.getIdToken();
         options.headers ||= {};
-        options.headers.Authorization = `Bearer ${token}`;
+        options.headers.Authorization = `Bearer ${idToken}`;
     }
+
     const res = await fetch(url, options);
-    console.log('res', res);
+
     if (res.ok) return res.json();
-    throw new Error ('Bad Request');
+    throw new Error('Bad Request');
 }

@@ -30,6 +30,10 @@ export default function TranslationPanel({
     });
   }, [user, currentDay]);
 
+  useEffect(() => {
+    setActiveSections([]);
+  }, [currentDay]);
+
   const dayData = languageIsHebrew ? days[currentDay].OT : days[currentDay].NT; // Return verse info for the current day and language
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
   const englishCitation = dayData.citation.english;

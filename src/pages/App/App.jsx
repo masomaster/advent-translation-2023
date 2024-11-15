@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getUser } from "../../utilities/users-service";
-import { onAuthChange } from "../../utilities/firebase";
-
+import { onAuthChange, getUserData } from "../../utilities/firebase";
 import NavBar from "../../components/NavBar/NavBar";
 import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
 import HomePage from "../HomePage/HomePage";
@@ -20,6 +19,17 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
+  // Fetch additional user data (e.g. name) from Firestore, add to user object
+  useEffect(() => {
+    async function fetchUserData() {
+      const data = await getUserData();
+      if (data) {
+        setUser((user) => ({ ...user, ...data }));
+      }
+    }
+    fetchUserData();
+  }, []);
+
   function returnInitialMaxDate() {
     const currentDate = new Date().getDate();
     const currentYear = new Date().getFullYear();
@@ -32,17 +42,15 @@ export default function App() {
     if (currentYear === 2023 && !isDecember) {
       return 1;
     }
-    // If after Dec '23, allow all 25 days
-    if (currentYear > 2023) {
-      return 25;
-    } else return 25;
+    // Otherwise, allow all 25 days
+    return 25;
   }
 
   return (
     <main className="App">
       {loading ? (
-      <p>Loading...</p>
-    ) : user ? (
+        <p>Loading...</p>
+      ) : user ? (
         <div className="logged-in">
           <NavBar
             user={user}
@@ -59,7 +67,7 @@ export default function App() {
           />
         </div>
       ) : (
-        <HomePage user={user} setUser={setUser} />
+        <HomePage user={user} setUser={setUser} setCurrentDay={setCurrentDay} />
       )}
     </main>
   );

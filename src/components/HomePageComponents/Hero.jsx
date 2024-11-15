@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import LoginForm from "../LoginForm/LoginForm";
 import SignUpForm from "../SignUpForm/SignUpForm";
-import { Link } from "react-router-dom";
 
-export default function Hero({ setUser }) {
+export default function Hero({ setUser, setCurrentDay }) {
   const [login, setLogin] = useState(true);
   const [emailEntered, setEmailEntered] = useState(false);
   const [error, setError] = useState("");
@@ -38,6 +38,7 @@ export default function Hero({ setUser }) {
             setUser={setUser}
             handleToggle={handleToggle}
             setError={setError}
+            setCurrentDay={setCurrentDay}
           />
         )}
           <p className="error-message">&nbsp;{error}</p>

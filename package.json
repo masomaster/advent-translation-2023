@@ -14,6 +14,7 @@
   "license": "ISC",
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "@firebase/firestore": "^4.7.4",
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -24,6 +25,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "firebase": "^11.0.1",
+    "firebase-admin": "^13.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.3",
     "morgan": "^1.10.0",

@@ -4,11 +4,16 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
 } from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  Timestamp,
+} from "firebase/firestore";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -20,8 +25,18 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const db = getFirestore();
 
-async function emailSignUp(email, password) {
+async function emailSignUp(signUpData) {
+  const {
+    email,
+    password,
+    latestDay,
+    preferredTranslation,
+    firstName,
+    lastName,
+  } = signUpData;
+
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -29,12 +44,26 @@ async function emailSignUp(email, password) {
       password
     );
     const user = userCredential.user;
+
+    // Store additional data on user in Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      email: email,
+      latestDay: latestDay,
+      preferredTranslation: preferredTranslation,
+      firstName: firstName,
+      lastName: lastName,
+      createdAt: Timestamp.fromDate(new Date()),
+    });
+
     return user;
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
     if (errorCode === "auth/email-already-in-use") {
       return "Email already in use";
+    }
+    if (errorCode === "auth/weak-password") {
+      return "Password should be at least 6 characters.";
     } else {
       return errorMessage;
     }
@@ -53,11 +82,33 @@ async function emailSignIn(email, password) {
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.error("error: ", error);
     if (errorCode === "auth/invalid-credential") {
       return "Email and password don't match an existing account. Try again.";
     }
     return errorMessage;
+  }
+}
+
+// Access user data fields, e.g., firstName, lastName, preferredTranslation
+async function getUserData() {
+  const user = auth.currentUser;
+
+  if (user) {
+    try {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        console.log("User Data:", userData);
+
+        return userData;
+      } else {
+        console.log("No user data found!");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  } else {
+    console.log("User is not logged in");
   }
 }
 
@@ -74,4 +125,14 @@ async function signOutUser() {
   }
 }
 
-export { app, emailSignUp, emailSignIn, onAuthChange, signOutUser };
+const user = auth.currentUser;
+
+export {
+  app,
+  emailSignUp,
+  emailSignIn,
+  onAuthChange,
+  signOutUser,
+  user,
+  getUserData,
+};

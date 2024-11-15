@@ -7,6 +7,7 @@ const translationSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    firebaseUID: String,
     greek: String,
     hebrew: String,
     day: {

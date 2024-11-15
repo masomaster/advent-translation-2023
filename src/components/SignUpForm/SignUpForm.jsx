@@ -2,7 +2,7 @@ import { useState } from "react";
 // import { signUp } from "../../utilities/users-service";
 import { emailSignUp } from "../../utilities/firebase";
 
-export default function SignUpForm({ setUser, setError }) {
+export default function SignUpForm({ setUser, setError, setCurrentDay }) {
   const [signUpForm, setSignUpForm] = useState({
     firstName: "",
     lastName: "",
@@ -26,12 +26,26 @@ export default function SignUpForm({ setUser, setError }) {
       setError("Passwords Must Match");
       return;
     }
-    const response = await emailSignUp(signUpForm.email, signUpForm.password);
+
+    // Prepare the form data to be sent to the server
+    const formDataCopy = {
+      ...signUpForm,
+      latestDay: 1,
+      preferredTranslation: "NIV",
+    };
+    delete formDataCopy.confirm;
+    delete formDataCopy.error;
+
+    const response = await emailSignUp(formDataCopy);
     if (response === "Email already in use") {
-      setError("Email already in use");
+      setError("Email already in use.");
       return;
     }
-    console.log("Logged in user: ", response);
+    if (response === "Password should be at least 6 characters.") {
+      setError("Password should be at least 6 characters.");
+      return;
+    }
+    setCurrentDay(1);
     return;
     try {
       const formDataCopy = {

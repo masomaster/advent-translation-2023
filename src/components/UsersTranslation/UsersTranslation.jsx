@@ -11,6 +11,7 @@ export default function UsersTranslation({
   handleSubmit,
   setOfficialTranslation,
 }) {
+
   // /* USE EFFECTS */
   const textareaRef = useRef(null);
 

@@ -1,12 +1,7 @@
 import { useState } from "react";
-import { emailSignIn } from "../../utilities/firebase";
+import { emailSignIn, handleGoogleSignIn } from "../../utilities/firebase";
 
-export default function LoginForm({
-  setUser,
-  emailEntered,
-  setEmailEntered,
-  setError,
-}) {
+export default function LoginForm({ emailEntered, setEmailEntered, setError }) {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -21,8 +16,13 @@ export default function LoginForm({
   async function handleSubmit(evt) {
     evt.preventDefault();
     const response = await emailSignIn(credentials.email, credentials.password);
-    if (response === "Email and password don't match an existing account. Try again.") {
-      setError("Email and password don't match an existing account. Try again.");
+    if (
+      response ===
+      "Email and password don't match an existing account. Try again."
+    ) {
+      setError(
+        "Email and password don't match an existing account. Try again."
+      );
     }
   }
 
@@ -63,6 +63,7 @@ export default function LoginForm({
           </label>
         </div>
       </form>
+      <button onClick={handleGoogleSignIn}>Sign In with Google</button>
     </div>
   );
 }

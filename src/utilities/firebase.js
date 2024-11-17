@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider, signInWithPopup
 } from "firebase/auth";
 import {
   getFirestore,
@@ -89,6 +90,21 @@ async function emailSignIn(email, password) {
   }
 }
 
+async function handleGoogleSignIn() {
+  const provider = new GoogleAuthProvider();
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+    return user;
+
+  } catch (error) {
+    console.error("Error during Google Sign-In:", error);
+  }
+}
+
 // Access user data fields, e.g., firstName, lastName, preferredTranslation
 function listenForUserData() {
   return new Promise((resolve, reject) => {
@@ -137,4 +153,5 @@ export {
   signOutUser,
   user,
   listenForUserData,
+  handleGoogleSignIn
 };

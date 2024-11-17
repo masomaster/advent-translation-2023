@@ -27,7 +27,6 @@ export default function Hero({ setUser, setCurrentDay }) {
         </h2>
         {login ? (
           <LoginForm
-            setUser={setUser}
             emailEntered={emailEntered}
             setEmailEntered={setEmailEntered}
             handleToggle={handleToggle}
@@ -35,7 +34,6 @@ export default function Hero({ setUser, setCurrentDay }) {
           />
         ) : (
           <SignUpForm
-            setUser={setUser}
             handleToggle={handleToggle}
             setError={setError}
             setCurrentDay={setCurrentDay}

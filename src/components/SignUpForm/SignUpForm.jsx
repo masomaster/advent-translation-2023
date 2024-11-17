@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { emailSignUp } from "../../utilities/firebase";
 
-export default function SignUpForm({ setUser, setError, setCurrentDay }) {
+export default function SignUpForm({ setError, setCurrentDay }) {
   const [signUpForm, setSignUpForm] = useState({
     firstName: "",
     lastName: "",

@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { handleGoogleSignIn } from "../../utilities/firebase";
 import LoginForm from "../LoginForm/LoginForm";
 import SignUpForm from "../SignUpForm/SignUpForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import "./Hero.css";
 
 export default function Hero({ setUser, setCurrentDay }) {
   const [login, setLogin] = useState(true);
@@ -47,6 +51,9 @@ export default function Hero({ setUser, setCurrentDay }) {
               : "Already have an account? Log In!"}
           </Link>
         </div>
+        <button onClick={handleGoogleSignIn} className="google-login-button">
+          <FontAwesomeIcon icon={faGoogle} /> Sign In with Google
+        </button>
       </div>
     </section>
   );

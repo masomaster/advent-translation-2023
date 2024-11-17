@@ -21,10 +21,10 @@ export default function SignUpForm({ setError, setCurrentDay }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    if (signUpForm.password !== signUpForm.confirm) {
-      setError("Passwords Must Match");
-      return;
-    }
+    // if (signUpForm.password !== signUpForm.confirm) {
+    //   setError("Passwords Must Match");
+    //   return;
+    // }
 
     // Prepare the form data to be sent to firebase
     const formDataCopy = {
@@ -32,7 +32,7 @@ export default function SignUpForm({ setError, setCurrentDay }) {
       latestDay: 1,
       preferredTranslation: "NIV",
     };
-    delete formDataCopy.confirm;
+    // delete formDataCopy.confirm;
     delete formDataCopy.error;
 
     // Send to firebase
@@ -64,7 +64,7 @@ export default function SignUpForm({ setError, setCurrentDay }) {
               className="input-field email rounded"
             />
           </label>
-          <label className="text-input">
+          {/* <label className="text-input">
             <input
               type="text"
               name="lastName"
@@ -74,7 +74,7 @@ export default function SignUpForm({ setError, setCurrentDay }) {
               required
               className="input-field email rounded"
             />
-          </label>
+          </label> */}
           <label className="text-input">
             <input
               type="email"
@@ -86,7 +86,7 @@ export default function SignUpForm({ setError, setCurrentDay }) {
               className="input-field email rounded"
             />
           </label>
-          <label className="text-input">
+          {/* <label className="text-input">
             <input
               type="password"
               name="password"
@@ -96,14 +96,14 @@ export default function SignUpForm({ setError, setCurrentDay }) {
               required
               className="input-field email rounded"
             />
-          </label>
+          </label> */}
           <div className="password-container show">
             <label className="text-input">
               <input
                 type="password"
-                name="confirm"
-                placeholder="Confirm Password"
-                value={signUpForm.confirm}
+                name="password"
+                placeholder="Password"
+                value={signUpForm.password}
                 onChange={handleChange}
                 required
                 className="input-field"

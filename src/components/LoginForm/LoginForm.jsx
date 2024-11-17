@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { emailSignIn, handleGoogleSignIn } from "../../utilities/firebase";
+import { emailSignIn } from "../../utilities/firebase";
 
 export default function LoginForm({ emailEntered, setEmailEntered, setError }) {
   const [credentials, setCredentials] = useState({
@@ -63,7 +63,6 @@ export default function LoginForm({ emailEntered, setEmailEntered, setError }) {
           </label>
         </div>
       </form>
-      <button onClick={handleGoogleSignIn}>Sign In with Google</button>
     </div>
   );
 }

@@ -32,7 +32,6 @@ export default function DayInfo({
         {currentDay !== 1 ? (
           <div className="left-button" onClick={() => handleDecrement()}>
             <FontAwesomeIcon icon={faArrowLeft} />
-            {/* <span> previous day</span> */}
           </div>
         ) : (
           <div className="left-button"></div>
@@ -43,7 +42,6 @@ export default function DayInfo({
         </div>
         {currentDay !== numOfDays && currentDay < maxDate ? (
           <div className="right-button" onClick={() => handleIncrement()}>
-            {/* <span>next day </span> */}
             <FontAwesomeIcon icon={faArrowRight} />
           </div>
         ) : (

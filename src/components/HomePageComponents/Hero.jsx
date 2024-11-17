@@ -41,7 +41,7 @@ export default function Hero({ setUser, setCurrentDay }) {
             setCurrentDay={setCurrentDay}
           />
         )}
-          <p className="error-message">&nbsp;{error}</p>
+        <p className="error-message">&nbsp;{error}</p>
         <div className="sign-up-toggle">
           <Link className="sign-up-toggle" to="" onClick={handleToggle}>
             {login

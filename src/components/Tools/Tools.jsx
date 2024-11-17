@@ -32,7 +32,8 @@ export default function Tools({
   };
   const infoButton = (
     <>
-      <FontAwesomeIcon aria-hidden="false"
+      <FontAwesomeIcon
+        aria-hidden="false"
         icon={faInfoCircle}
         style={{ marginLeft: "10px" }}
         data-tooltip-id="info"

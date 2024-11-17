@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getUser } from "../../utilities/users-service";
 import { onAuthChange, listenForUserData } from "../../utilities/firebase";
 import NavBar from "../../components/NavBar/NavBar";
 import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
@@ -23,16 +22,16 @@ export default function App() {
   useEffect(() => {
     async function fetchUserData() {
       try {
-        const data = await listenForUserData();        
+        const data = await listenForUserData();
         if (data) {
-          setUser((user) => ({ ...user, ...data }));        }
+          setUser((user) => ({ ...user, ...data }));
+        }
       } catch (error) {
         console.error("Error in fetchUserData:", error);
       }
     }
     fetchUserData();
   }, []);
-  
 
   function returnInitialMaxDate() {
     const currentDate = new Date().getDate();

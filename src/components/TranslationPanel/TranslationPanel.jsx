@@ -5,7 +5,6 @@ import DayInfo from "../DayInfo/DayInfo.jsx";
 import VersePanel from "../VersePanel/VersePanel.jsx";
 import UsersTranslation from "../UsersTranslation/UsersTranslation.jsx";
 import Tools from "../Tools/Tools.jsx";
-import SwitchLanguage from "../SwitchLanguage/SwitchLanguage.jsx";
 import DoneForDay from "../../components/DoneForDay/DoneForDay";
 import Footer from "../Footer/Footer.jsx";
 
@@ -107,9 +106,6 @@ export default function TranslationPanel({
             setFeedbackHtml={setFeedbackHtml}
             setActiveSections={setActiveSections}
           />
-          {/* <div>
-            <h4>December {currentDay}:</h4>
-          </div> */}
           <div>
             <div>
               <VersePanel
@@ -145,15 +141,6 @@ export default function TranslationPanel({
                 toggleSection={toggleSection}
                 isActive={isActive}
               />
-
-              {/* <SwitchLanguage
-                languageIsHebrew={languageIsHebrew}
-                setLanguageIsHebrew={setLanguageIsHebrew}
-                setDone={setDone}
-                handleSubmit={handleSubmit}
-                setFeedbackHtml={setFeedbackHtml}
-                setActiveSections={setActiveSections}
-              /> */}
             </div>
           </div>
           <Footer user={user} />

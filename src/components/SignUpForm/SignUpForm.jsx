@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { signUp } from "../../utilities/users-service";
 import { emailSignUp } from "../../utilities/firebase";
 
 export default function SignUpForm({ setUser, setError, setCurrentDay }) {
@@ -46,23 +45,6 @@ export default function SignUpForm({ setUser, setError, setCurrentDay }) {
       return;
     }
     setCurrentDay(1);
-    return;
-    try {
-      const formDataCopy = {
-        ...signUpForm,
-        latestDay: 1,
-        preferredTranslation: "NIV",
-      };
-      delete formDataCopy.confirm;
-      delete formDataCopy.error;
-      const user = await signUp(formDataCopy);
-      setUser(user);
-    } catch {
-      setSignUpForm({
-        ...signUpForm,
-      });
-      setError("Sign Up Failed - Try Again");
-    }
   }
 
   return (

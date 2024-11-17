@@ -1,6 +1,5 @@
 const OpenAI = require("openai");
 const Translation = require("../../models/translation");
-const User = require("../../models/user");
 
 module.exports = {
   create,
@@ -10,75 +9,22 @@ module.exports = {
   getTranslationFeedback,
 };
 
-// Helper function to ensure Firebase UID is associated with the user
-async function ensureFirebaseUID(req, day) {
-  try {
-    const firebaseUID = req.user.uid;
-    const email = req.user.email;
-
-    // Get user in MongoDB
-    const mongoDbUser = await User.findOne({ email });
-
-    // If user exists but UID is missing, add the Firebase UID
-    if (mongoDbUser) {
-      const mongoUserID = mongoDbUser._id;
-      const filter = { user: mongoUserID, day: day };
-      const existingTranslation = await Translation.findOne(filter);
-      if (existingTranslation && !existingTranslation.firebaseUID) {
-        console.log("Updating translation with new Firebase UID");
-        const update = { firebaseUID: firebaseUID };
-        const updatedTranslation = await Translation.findOneAndUpdate(
-          filter,
-          update,
-          { new: true }
-        );
-      }
-      // }
-    } 
-
-    return firebaseUID;
-  } catch (err) {
-    console.error(err);
-    res.status(400).json(err);
-  }
-}
-
 async function create(req, res) {
   try {
     const firebaseUID = req.user.uid;
 
     // Check for existing translation for the given day and firebaseUID
-    let existingTranslation = await Translation.findOne({
+    const existingTranslation = await Translation.findOne({
       day: req.body.day,
       firebaseUID: firebaseUID,
     });
-
-    // If translation does not exist with firebaseUID, check for translation with old user ID
-    if (existingTranslation === null) {
-      const email = req.user.email;
-
-      // Get user in MongoDB
-      const mongoDbUser = await User.findOne({ email });
-      if (mongoDbUser) {
-        const mongoUserID = mongoDbUser._id;
-
-        existingTranslation = await Translation.findOne({
-          day: req.body.day,
-          user: mongoUserID,
-        });
-
-        // If translation found with old user ID, update the translation to include new Firebase UID
-        if (existingTranslation) {
-          const firebaseUID = await ensureFirebaseUID(req, req.body.day);
-        }
-      }
-    }
 
     // If we have found an existing translation, update it
     if (existingTranslation) {
       return update(req, res);
     }
 
+    // Else, create
     if (req.body.hebrew && !req.body.greek) req.body.greek = "";
     if (req.body.greek && !req.body.hebrew) req.body.hebrew = "";
 
@@ -108,8 +54,9 @@ async function update(req, res) {
 }
 
 async function getDayTranslations(req, res) {
+  const firebaseUID = req.user.uid;
+
   try {
-    const firebaseUID = await ensureFirebaseUID(req, req.params.id);
     const dayTranslations = await Translation.findOne({
       day: req.params.id,
       firebaseUID: firebaseUID,

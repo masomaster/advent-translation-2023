@@ -1,5 +1,4 @@
 import { useState } from "react";
-import * as usersService from "../../utilities/users-service";
 import { emailSignIn } from "../../utilities/firebase";
 
 export default function LoginForm({
@@ -24,14 +23,6 @@ export default function LoginForm({
     const response = await emailSignIn(credentials.email, credentials.password);
     if (response === "Email and password don't match an existing account. Try again.") {
       setError("Email and password don't match an existing account. Try again.");
-      return;
-    }
-    return;
-    try {
-      const user = await usersService.login(credentials);
-      setUser(user);
-    } catch (err) {
-      setError("Login Failed: Check your email address and password.");
     }
   }
 

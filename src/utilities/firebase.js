@@ -90,27 +90,31 @@ async function emailSignIn(email, password) {
 }
 
 // Access user data fields, e.g., firstName, lastName, preferredTranslation
-async function getUserData() {
-  const user = auth.currentUser;
-
-  if (user) {
-    try {
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        console.log("User Data:", userData);
-
-        return userData;
+function listenForUserData() {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            resolve(userData);
+          } else {
+            console.log("No user data found!");
+            resolve(null);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          reject(error);
+        }
       } else {
-        console.log("No user data found!");
+        console.log("User is not logged in");
+        resolve(null);
       }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  } else {
-    console.log("User is not logged in");
-  }
+    });
+  });
 }
+
 
 // Function to set up the auth state listener
 const onAuthChange = (callback) => {
@@ -134,5 +138,5 @@ export {
   onAuthChange,
   signOutUser,
   user,
-  getUserData,
+  listenForUserData,
 };

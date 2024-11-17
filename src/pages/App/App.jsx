@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getUser } from "../../utilities/users-service";
-import { onAuthChange, getUserData } from "../../utilities/firebase";
+import { onAuthChange, listenForUserData } from "../../utilities/firebase";
 import NavBar from "../../components/NavBar/NavBar";
 import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
 import HomePage from "../HomePage/HomePage";
@@ -22,13 +22,17 @@ export default function App() {
   // Fetch additional user data (e.g. name) from Firestore, add to user object
   useEffect(() => {
     async function fetchUserData() {
-      const data = await getUserData();
-      if (data) {
-        setUser((user) => ({ ...user, ...data }));
+      try {
+        const data = await listenForUserData();        
+        if (data) {
+          setUser((user) => ({ ...user, ...data }));        }
+      } catch (error) {
+        console.error("Error in fetchUserData:", error);
       }
     }
     fetchUserData();
   }, []);
+  
 
   function returnInitialMaxDate() {
     const currentDate = new Date().getDate();

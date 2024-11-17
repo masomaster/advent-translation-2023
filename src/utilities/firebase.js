@@ -5,7 +5,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  GoogleAuthProvider, signInWithPopup
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -99,7 +100,6 @@ async function handleGoogleSignIn() {
     const token = credential.accessToken;
     const user = result.user;
     return user;
-
   } catch (error) {
     console.error("Error during Google Sign-In:", error);
   }
@@ -129,7 +129,6 @@ function listenForUserData() {
   });
 }
 
-
 // Function to set up the auth state listener
 const onAuthChange = (callback) => {
   return onAuthStateChanged(auth, callback);
@@ -153,5 +152,5 @@ export {
   signOutUser,
   user,
   listenForUserData,
-  handleGoogleSignIn
+  handleGoogleSignIn,
 };

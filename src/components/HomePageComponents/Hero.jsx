@@ -21,6 +21,7 @@ export default function Hero({ setUser, setCurrentDay }) {
 
   const handleResetPw = () => {
     setError("");
+    setEmailEntered(false);
     setPwReset(!pwReset);
   }
 
@@ -37,7 +38,7 @@ export default function Hero({ setUser, setCurrentDay }) {
         <h2 className="hero-subtitle">
           Daily Hebrew and Greek translations for Advent
         </h2>
-        {pwReset ? (<PasswordReset setError={setError} />) : (
+        {pwReset ? (<PasswordReset setError={setError} setEmailEntered={setEmailEntered} setPwReset={setPwReset}/>) : (
         login ? (
           <LoginForm
             emailEntered={emailEntered}

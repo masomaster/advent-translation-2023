@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
-export default function PasswordReset({ setError }) {
+export default function PasswordReset({ setError, setEmailEntered, setPwReset }) {
   const [email, setEmail] = useState("");
 
   const handlePasswordReset = async (e) => {
@@ -11,6 +11,8 @@ export default function PasswordReset({ setError }) {
     try {
       await sendPasswordResetEmail(auth, email);
       setError("Password reset email sent! Please check your inbox.");
+      setEmailEntered(false)
+      setPwReset(false);
     } catch (error) {
       console.error("Error sending password reset email:", error);
       setError("Failed to send password reset email. Please try again.");

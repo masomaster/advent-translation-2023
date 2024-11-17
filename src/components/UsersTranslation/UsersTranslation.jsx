@@ -44,6 +44,7 @@ export default function UsersTranslation({
         </label>
         <textarea
           name="translation"
+          id="translation"
           value={translation}
           onChange={(e) => setTranslation(e.target.value)}
           ref={textareaRef}

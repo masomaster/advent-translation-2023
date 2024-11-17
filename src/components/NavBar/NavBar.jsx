@@ -28,6 +28,7 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
       <div className="ham-container nav-container">
         <input
           className="checkbox"
+          name="checkbox"
           type="checkbox"
           checked={checked}
           onChange={() => {}} // Dummy onChange handler to avoid React warning
@@ -46,7 +47,7 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
             Welcome, {user.firstName}
           </li>
           <li id="logout">
-            <Link to="" onClick={handleLogOut}>
+            <Link to="../" onClick={handleLogOut}>
               Log Out
             </Link>
           </li>

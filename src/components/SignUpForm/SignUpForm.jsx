@@ -26,7 +26,7 @@ export default function SignUpForm({ setUser, setError, setCurrentDay }) {
       return;
     }
 
-    // Prepare the form data to be sent to the server
+    // Prepare the form data to be sent to firebase
     const formDataCopy = {
       ...signUpForm,
       latestDay: 1,
@@ -35,7 +35,9 @@ export default function SignUpForm({ setUser, setError, setCurrentDay }) {
     delete formDataCopy.confirm;
     delete formDataCopy.error;
 
+    // Send to firebase
     const response = await emailSignUp(formDataCopy);
+    
     if (response === "Email already in use") {
       setError("Email already in use.");
       return;

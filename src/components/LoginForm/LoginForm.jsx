@@ -28,7 +28,7 @@ export default function LoginForm({
 
   return (
     <div>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label className="text-input">
           <input
             type="text"

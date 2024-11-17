@@ -15,9 +15,19 @@ export default function App() {
   const language = languageIsHebrew ? "hebrew" : "greek";
 
   useEffect(() => {
-    const unsubscribe = onAuthChange((firebaseUser) => {
+    const unsubscribe = onAuthChange(async (firebaseUser) => {
       setUser(firebaseUser || null);
       setLoading(false);
+      if (firebaseUser) {
+        try {
+          const data = await listenForUserData();
+          if (data) {
+            setUser((user) => ({ ...user, ...data }));
+          }
+        } catch (error) {
+          console.error("Error in fetchUserData:", error);
+        }
+      }
     });
     return () => unsubscribe();
   }, []);

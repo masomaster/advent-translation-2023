@@ -100,7 +100,6 @@ function listenForUserData() {
             const userData = userDoc.data();
             resolve(userData);
           } else {
-            console.log("No user data found!");
             resolve(null);
           }
         } catch (error) {
@@ -108,7 +107,6 @@ function listenForUserData() {
           reject(error);
         }
       } else {
-        console.log("User is not logged in");
         resolve(null);
       }
     });

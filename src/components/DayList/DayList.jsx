@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Tooltip } from "react-tooltip";
 import * as days from "../../days.json";
 
-export default function DayList({ setCurrentDay, setChecked, maxDate }) {
+export default function DayList({ setCurrentDay, setChecked, maxDate, saveTranslation, setLanguageIsHebrew }) {
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
   const dayList = useMemo(
     () =>
@@ -24,16 +24,11 @@ export default function DayList({ setCurrentDay, setChecked, maxDate }) {
     [maxDate, numOfDays, days, handleClick]
   );
 
-  // This isn't pretty, but it avoids state issues with checked being false before currentDay is set
-  async function changeDay(d) {
-    setCurrentDay(d);
-  }
-  async function changeChecked() {
-    setChecked(false);
-  }
   async function handleClick(d) {
-    await changeDay(d);
-    await changeChecked();
+    await saveTranslation();
+    await setLanguageIsHebrew(true);
+    await setCurrentDay(d);
+    await setChecked(false);
   }
 
   return <div className="day-list">{dayList}</div>;

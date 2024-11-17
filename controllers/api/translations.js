@@ -24,6 +24,7 @@ async function create(req, res) {
       return update(req, res);
     }
 
+    if (req.body.hebrew === "" && req.body.greek === "") return;
     // Else, create
     if (req.body.hebrew && !req.body.greek) req.body.greek = "";
     if (req.body.greek && !req.body.hebrew) req.body.hebrew = "";
@@ -32,7 +33,7 @@ async function create(req, res) {
     const dayTranslations = await Translation.create(req.body);
     res.json(dayTranslations);
   } catch (err) {
-    console.error(err);
+    console.error("Error in translation controller: ", err);
     res.status(400).json(err);
   }
 }

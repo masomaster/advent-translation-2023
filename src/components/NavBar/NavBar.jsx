@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 import { signOutUser } from "../../utilities/firebase";
 import DayList from "../DayList/DayList";
 
-export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
+export default function NavBar({
+  user,
+  setCurrentDay,
+  maxDate,
+  saveTranslation,
+  setLanguageIsHebrew,
+}) {
   const [checked, setChecked] = useState(false);
   const [behind, setBehind] = useState("behind");
 
@@ -57,6 +63,8 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
               setChecked={setChecked}
               checked={checked}
               maxDate={maxDate}
+              saveTranslation={saveTranslation}
+              setLanguageIsHebrew={setLanguageIsHebrew}
             />
           )}
         </div>

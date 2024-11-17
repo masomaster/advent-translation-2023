@@ -3,11 +3,10 @@ const Schema = mongoose.Schema;
 
 const translationSchema = new Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
+    firebaseUID: {
+      type: String,
+      required: true,
     },
-    firebaseUID: String,
     greek: String,
     hebrew: String,
     day: {

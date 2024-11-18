@@ -108,7 +108,7 @@ async function handleGoogleSignIn() {
 // Access user data fields, e.g., firstName, lastName, preferredTranslation
 function listenForUserData() {
   return new Promise((resolve, reject) => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
           const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -125,6 +125,7 @@ function listenForUserData() {
       } else {
         resolve(null);
       }
+      unsubscribe();
     });
   });
 }

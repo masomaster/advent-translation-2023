@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { signUp } from "../../utilities/users-service";
+import { emailSignUp } from "../../utilities/firebase";
 
-export default function SignUpForm({ setUser, setError }) {
+export default function SignUpForm({ setError, setCurrentDay }) {
   const [signUpForm, setSignUpForm] = useState({
     firstName: "",
     lastName: "",
@@ -21,26 +21,27 @@ export default function SignUpForm({ setUser, setError }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    if (signUpForm.password !== signUpForm.confirm) {
-      setError("Passwords Must Match");
+
+    // Prepare the form data to be sent to firebase
+    const formDataCopy = {
+      ...signUpForm,
+      latestDay: 1,
+      preferredTranslation: "NIV",
+    };
+    delete formDataCopy.error;
+
+    // Send to firebase
+    const response = await emailSignUp(formDataCopy);
+
+    if (response === "Email already in use") {
+      setError("Email already in use.");
       return;
     }
-    try {
-      const formDataCopy = {
-        ...signUpForm,
-        latestDay: 1,
-        preferredTranslation: "NIV",
-      };
-      delete formDataCopy.confirm;
-      delete formDataCopy.error;
-      const user = await signUp(formDataCopy);
-      setUser(user);
-    } catch {
-      setSignUpForm({
-        ...signUpForm,
-      });
-      setError("Sign Up Failed - Try Again");
+    if (response === "Password should be at least 6 characters.") {
+      setError("Password should be at least 6 characters.");
+      return;
     }
+    setCurrentDay(1);
   }
 
   return (
@@ -51,19 +52,9 @@ export default function SignUpForm({ setUser, setError }) {
             <input
               type="text"
               name="firstName"
+              autoComplete="given-name"
               placeholder="First Name"
               value={signUpForm.firstName}
-              onChange={handleChange}
-              required
-              className="input-field email rounded"
-            />
-          </label>
-          <label className="text-input">
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={signUpForm.lastName}
               onChange={handleChange}
               required
               className="input-field email rounded"
@@ -74,18 +65,8 @@ export default function SignUpForm({ setUser, setError }) {
               type="email"
               name="email"
               placeholder="Email"
+              autoComplete="email"
               value={signUpForm.email}
-              onChange={handleChange}
-              required
-              className="input-field email rounded"
-            />
-          </label>
-          <label className="text-input">
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={signUpForm.password}
               onChange={handleChange}
               required
               className="input-field email rounded"
@@ -95,9 +76,9 @@ export default function SignUpForm({ setUser, setError }) {
             <label className="text-input">
               <input
                 type="password"
-                name="confirm"
-                placeholder="Confirm Password"
-                value={signUpForm.confirm}
+                name="password"
+                placeholder="Password"
+                value={signUpForm.password}
                 onChange={handleChange}
                 required
                 className="input-field"

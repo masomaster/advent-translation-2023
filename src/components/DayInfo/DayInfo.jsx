@@ -7,8 +7,7 @@ export default function DayInfo({
   numOfDays,
   maxDate,
   currentDay,
-  handleDecrement,
-  handleIncrement,
+  handleDayChange,
   languageIsHebrew,
   setLanguageIsHebrew,
   setDone,
@@ -30,9 +29,8 @@ export default function DayInfo({
       </div>
       <div className="day-buttons">
         {currentDay !== 1 ? (
-          <div className="left-button" onClick={() => handleDecrement()}>
+          <div className="left-button" onClick={() => handleDayChange(-1)}>
             <FontAwesomeIcon icon={faArrowLeft} />
-            {/* <span> previous day</span> */}
           </div>
         ) : (
           <div className="left-button"></div>
@@ -42,8 +40,7 @@ export default function DayInfo({
           <h4>December {currentDay}</h4>
         </div>
         {currentDay !== numOfDays && currentDay < maxDate ? (
-          <div className="right-button" onClick={() => handleIncrement()}>
-            {/* <span>next day </span> */}
+          <div className="right-button" onClick={() => handleDayChange(1)}>
             <FontAwesomeIcon icon={faArrowRight} />
           </div>
         ) : (

@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import * as translationsAPI from "../../utilities/translations-api";
 import * as days from "../../days.json";
 import DayInfo from "../DayInfo/DayInfo.jsx";
 import VersePanel from "../VersePanel/VersePanel.jsx";
 import UsersTranslation from "../UsersTranslation/UsersTranslation.jsx";
 import Tools from "../Tools/Tools.jsx";
-import SwitchLanguage from "../SwitchLanguage/SwitchLanguage.jsx";
 import DoneForDay from "../../components/DoneForDay/DoneForDay";
 import Footer from "../Footer/Footer.jsx";
 
@@ -14,13 +12,16 @@ export default function TranslationPanel({
   currentDay,
   setCurrentDay,
   maxDate,
+  saveTranslation,
+  translation,
+  setTranslation,
+  languageIsHebrew,
+  setLanguageIsHebrew
 }) {
   /* STATES AND VARIABLES */
-  const [languageIsHebrew, setLanguageIsHebrew] = useState(true);
   const [feedbackHtml, setFeedbackHtml] = useState("");
   const [done, setDone] = useState(false);
   const [activeSections, setActiveSections] = useState([]);
-  const [translation, setTranslation] = useState("");
   const [officialTranslation, setOfficialTranslation] = useState("");
 
   useEffect(() => {
@@ -29,6 +30,10 @@ export default function TranslationPanel({
       behavior: "smooth",
     });
   }, [user, currentDay]);
+
+  useEffect(() => {
+    setActiveSections([]);
+  }, [currentDay]);
 
   const dayData = languageIsHebrew ? days[currentDay].OT : days[currentDay].NT; // Return verse info for the current day and language
   const numOfDays = Object.keys(days).filter((key) => key !== "default").length;
@@ -49,41 +54,27 @@ export default function TranslationPanel({
         : [...prev, index]
     );
   };
-  // Saves translation to database
+
+  // Used for "Save Translation" button
   async function handleSubmit(evt) {
     evt.preventDefault();
-    try {
-      const dayTranslation = {
-        [language]: translation,
-        day: currentDay,
-        user: user._id,
-      };
-      const results = await translationsAPI.createTranslations(dayTranslation);
-      if (results[language]) setTranslation(results[language]);
-      else setTranslation("");
-    } catch (err) {
-      console.log("Error in handleSubmit: ", err);
-    }
+    const results = await saveTranslation();
+    if (results[language]) setTranslation(results[language]);
+    else setTranslation("");
   }
 
   // Moves current day up or down and resets to Hebrew
-  function handleIncrement() {
-    if (currentDay < numOfDays) {
-      setCurrentDay(currentDay + 1);
+  async function handleDayChange(num) {
+    if ((num === 1 && currentDay < numOfDays) || 
+        (num === -1 && currentDay > 1)) {
+      saveTranslation();
+      setCurrentDay(currentDay + num);
       setLanguageIsHebrew(true);
       setFeedbackHtml("");
       setActiveSections([]);
     }
   }
-  function handleDecrement() {
-    if (currentDay > 1) {
-      setCurrentDay(currentDay - 1);
-      setLanguageIsHebrew(true);
-      setFeedbackHtml("");
-      setActiveSections([]);
-    }
-  }
-
+  
   return (
     <div id="home">
       {done ? (
@@ -94,8 +85,7 @@ export default function TranslationPanel({
             numOfDays={numOfDays}
             maxDate={maxDate}
             currentDay={currentDay}
-            handleDecrement={handleDecrement}
-            handleIncrement={handleIncrement}
+            handleDayChange={handleDayChange}
             languageIsHebrew={languageIsHebrew}
             setLanguageIsHebrew={setLanguageIsHebrew}
             setDone={setDone}
@@ -103,9 +93,6 @@ export default function TranslationPanel({
             setFeedbackHtml={setFeedbackHtml}
             setActiveSections={setActiveSections}
           />
-          {/* <div>
-            <h4>December {currentDay}:</h4>
-          </div> */}
           <div>
             <div>
               <VersePanel
@@ -141,15 +128,6 @@ export default function TranslationPanel({
                 toggleSection={toggleSection}
                 isActive={isActive}
               />
-
-              {/* <SwitchLanguage
-                languageIsHebrew={languageIsHebrew}
-                setLanguageIsHebrew={setLanguageIsHebrew}
-                setDone={setDone}
-                handleSubmit={handleSubmit}
-                setFeedbackHtml={setFeedbackHtml}
-                setActiveSections={setActiveSections}
-              /> */}
             </div>
           </div>
           <Footer user={user} />

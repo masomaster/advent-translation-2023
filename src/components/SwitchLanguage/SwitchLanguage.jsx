@@ -1,4 +1,4 @@
-import './SwitchLanguage.css';
+import "./SwitchLanguage.css";
 
 export default function SwitchLanguage({
   languageIsHebrew,
@@ -6,10 +6,9 @@ export default function SwitchLanguage({
   setDone,
   handleSubmit,
   setFeedbackHtml,
-  setActiveSections
+  setActiveSections,
 }) {
   async function handleLanguageSwitch(evt) {
-    // evt.preventDefault();
     try {
       await handleSubmit(evt);
       setFeedbackHtml("");
@@ -41,23 +40,5 @@ export default function SwitchLanguage({
         Greek
       </div>
     </div>
-    // NOTE TO SELF: I WANT TO MAKE THIS A TOGGLE PANEL, WITH HEBREW/GREEK ON EITHER SIDE.
-    // <div >
-    //   <button className="language-btn" onClick={handleLanguageSwitch}>
-    //     {languageIsHebrew ? "α" : "א"}
-    //   </button>
-    //   {!languageIsHebrew && (
-    //     <button onClick={handleDone}>Done for the Day!</button>
-    //   )}
-    // </div>
-
-    // <div className="full-width-buttons other-buttons">
-    //   <button onClick={handleLanguageSwitch}>
-    //     {languageIsHebrew ? "On to Greek" : "Back to Hebrew"}
-    //   </button>
-    //   {!languageIsHebrew && (
-    //     <button onClick={handleDone}>Done for the Day!</button>
-    //   )}
-    // </div>
   );
 }

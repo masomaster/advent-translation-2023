@@ -1,12 +1,7 @@
 import { useState } from "react";
-import * as usersService from "../../utilities/users-service";
+import { emailSignIn } from "../../utilities/firebase";
 
-export default function LoginForm({
-  setUser,
-  emailEntered,
-  setEmailEntered,
-  setError
-}) {
+export default function LoginForm({ emailEntered, setEmailEntered, setError }) {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -20,22 +15,26 @@ export default function LoginForm({
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    try {
-      const user = await usersService.login(credentials);
-      setUser(user);
-    } catch (err) {
-      setError("Login Failed: Check your email address and password.");
+    const response = await emailSignIn(credentials.email, credentials.password);
+    if (
+      response ===
+      "Email and password don't match an existing account. Try again."
+    ) {
+      setError(
+        "Email and password don't match an existing account. Try again."
+      );
     }
   }
 
   return (
     <div>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label className="text-input">
           <input
             type="text"
             name="email"
             placeholder="Enter your email address"
+            autoComplete="email"
             className={`input-field email ${emailEntered ? "rounded" : ""}`}
             value={credentials.email}
             onChange={handleChange}

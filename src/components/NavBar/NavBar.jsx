@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import * as userService from "../../utilities/users-service";
+import { signOutUser } from "../../utilities/firebase";
 import DayList from "../DayList/DayList";
 
-export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
+export default function NavBar({
+  user,
+  setCurrentDay,
+  maxDate,
+  saveTranslation,
+  setLanguageIsHebrew,
+}) {
   const [checked, setChecked] = useState(false);
   const [behind, setBehind] = useState("behind");
 
-  // UseEffect to handle setting behind to true 0.5sec after"checked" state is set to false
+  // UseEffect to handle setting behind to true 0.5sec after "checked" state is set to false
   useEffect(() => {
     if (!checked) {
       setTimeout(() => {
@@ -19,8 +25,7 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
   }, [checked]);
 
   function handleLogOut() {
-    userService.logOut();
-    setUser(null);
+    signOutUser();
   }
 
   return (
@@ -29,6 +34,7 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
       <div className="ham-container nav-container">
         <input
           className="checkbox"
+          name="checkbox"
           type="checkbox"
           checked={checked}
           onChange={() => {}} // Dummy onChange handler to avoid React warning
@@ -47,7 +53,7 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
             Welcome, {user.firstName}
           </li>
           <li id="logout">
-            <Link to="" onClick={handleLogOut}>
+            <Link to="../" onClick={handleLogOut}>
               Log Out
             </Link>
           </li>
@@ -57,6 +63,8 @@ export default function NavBar({ user, setUser, setCurrentDay, maxDate }) {
               setChecked={setChecked}
               checked={checked}
               maxDate={maxDate}
+              saveTranslation={saveTranslation}
+              setLanguageIsHebrew={setLanguageIsHebrew}
             />
           )}
         </div>

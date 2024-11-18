@@ -34,6 +34,7 @@ export default function LoginForm({ emailEntered, setEmailEntered, setError }) {
             type="text"
             name="email"
             placeholder="Enter your email address"
+            autoComplete="email"
             className={`input-field email ${emailEntered ? "rounded" : ""}`}
             value={credentials.email}
             onChange={handleChange}

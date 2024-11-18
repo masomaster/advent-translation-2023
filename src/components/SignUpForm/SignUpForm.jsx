@@ -52,6 +52,7 @@ export default function SignUpForm({ setError, setCurrentDay }) {
             <input
               type="text"
               name="firstName"
+              autoComplete="given-name"
               placeholder="First Name"
               value={signUpForm.firstName}
               onChange={handleChange}
@@ -64,6 +65,7 @@ export default function SignUpForm({ setError, setCurrentDay }) {
               type="email"
               name="email"
               placeholder="Email"
+              autoComplete="email"
               value={signUpForm.email}
               onChange={handleChange}
               required

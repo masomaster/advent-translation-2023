@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { handleGoogleSignIn } from "../../utilities/firebase";
 import LoginForm from "../LoginForm/LoginForm";
 import SignUpForm from "../SignUpForm/SignUpForm";
-import PasswordReset from "../passwordReset/passwordReset";
+import PasswordReset from "../PasswordReset/PasswordReset";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import "./Hero.css";

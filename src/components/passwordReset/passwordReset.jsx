@@ -28,7 +28,7 @@ export default function PasswordReset({ setError, setEmailEntered, setPwReset })
           id="email"
           placeholder="Enter your email address"
           className="input-field email"
-
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required

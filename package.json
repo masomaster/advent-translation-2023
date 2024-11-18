@@ -12,7 +12,6 @@
   },
   "author": "Mason D. Lancaster",
   "license": "ISC",
-  "proxy": "http://localhost:3001",
   "dependencies": {
     "@firebase/firestore": "^4.7.4",
     "@fortawesome/fontawesome-free": "^6.6.0",

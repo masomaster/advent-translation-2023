@@ -46,50 +46,48 @@ export default function SignUpForm({ setError, setCurrentDay }) {
 
   return (
     <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
+      <form autoComplete="off" onSubmit={handleSubmit}>
+        <label className="text-input">
+          <input
+            type="text"
+            name="firstName"
+            autoComplete="given-name"
+            placeholder="First Name"
+            value={signUpForm.firstName}
+            onChange={handleChange}
+            required
+            className="input-field email rounded"
+          />
+        </label>
+        <label className="text-input">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            autoComplete="email"
+            value={signUpForm.email}
+            onChange={handleChange}
+            required
+            className="input-field email rounded"
+          />
+        </label>
+        <div className="password-container show">
           <label className="text-input">
             <input
-              type="text"
-              name="firstName"
-              autoComplete="given-name"
-              placeholder="First Name"
-              value={signUpForm.firstName}
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={signUpForm.password}
               onChange={handleChange}
               required
-              className="input-field email rounded"
+              className="input-field"
             />
+            <button type="submit" className="sign-in-btn">
+              SIGN UP
+            </button>
           </label>
-          <label className="text-input">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              autoComplete="email"
-              value={signUpForm.email}
-              onChange={handleChange}
-              required
-              className="input-field email rounded"
-            />
-          </label>
-          <div className="password-container show">
-            <label className="text-input">
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={signUpForm.password}
-                onChange={handleChange}
-                required
-                className="input-field"
-              />
-              <button type="submit" className="sign-in-btn">
-                SIGN UP
-              </button>
-            </label>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }

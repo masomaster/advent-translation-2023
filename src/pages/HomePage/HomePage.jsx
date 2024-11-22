@@ -1,4 +1,4 @@
-import Header from "../../components/HomePageComponents/Header";
+import Header from "../../components/Header/Header";
 import Hero from "../../components/HomePageComponents/Hero";
 import FeatureSection from "../../components/HomePageComponents/FeatureSection";
 import Footer from "../../components/Footer/Footer";

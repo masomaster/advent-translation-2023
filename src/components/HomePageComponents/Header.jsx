@@ -1,13 +1,18 @@
-import React from 'react';
+import { Link } from "react-router-dom";
 
-function Header() {
+export default function Header({ authPage, setAuthPage }) {
+  function handleClick() {
+    setAuthPage(true);
+  }
+
   return (
     <header className="header">
-      <div className="header-content">
-        <h2 className="header-title">Advent Translation</h2>
-      </div>
+      <h2 className="header-title">Advent Translation</h2>
+      {authPage ? null : (
+        // <Link to="">
+          <button className="login-button" onClick={handleClick}>Sign In</button>
+        // </Link>
+      )}
     </header>
   );
 }
-
-export default Header;

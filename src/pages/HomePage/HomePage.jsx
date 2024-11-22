@@ -4,12 +4,12 @@ import FeatureSection from "../../components/HomePageComponents/FeatureSection";
 import Footer from "../../components/Footer/Footer";
 import "./HomePage.css";
 
-export default function HomePage({ user, setUser, setCurrentDay }) {
+export default function HomePage({ user, authPage, setAuthPage, setCurrentDay }) {
   return (
     <div className="homepage-container">
-      <Header />
+      <Header authPage={authPage} setAuthPage={setAuthPage} />
       <main className="container">
-        <Hero setUser={setUser} setCurrentDay={setCurrentDay} />
+        <Hero setCurrentDay={setCurrentDay} />
         <FeatureSection />
       </main>
       <Footer user={user} />

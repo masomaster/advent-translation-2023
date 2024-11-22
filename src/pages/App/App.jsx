@@ -4,6 +4,7 @@ import * as translationsAPI from "../../utilities/translations-api";
 import NavBar from "../../components/NavBar/NavBar";
 import TranslationPanel from "../../components/TranslationPanel/TranslationPanel";
 import HomePage from "../HomePage/HomePage";
+import AuthPage from "../AuthPage/AuthPage";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -13,6 +14,7 @@ export default function App() {
   const [translation, setTranslation] = useState("");
   const [languageIsHebrew, setLanguageIsHebrew] = useState(true);
   const language = languageIsHebrew ? "hebrew" : "greek";
+  const [authPage, setAuthPage] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthChange(async (firebaseUser) => {
@@ -104,8 +106,21 @@ export default function App() {
             saveTranslation={saveTranslation}
           />
         </div>
+      ) : authPage ? (
+        <AuthPage
+        user={user}
+          authPage={authPage}
+          setAuthPage={setAuthPage}
+          setCurrentDay={setCurrentDay}
+        />
       ) : (
-        <HomePage user={user} setUser={setUser} setCurrentDay={setCurrentDay} />
+        <HomePage
+          user={user}
+          setUser={setUser}
+          authPage={authPage}
+          setCurrentDay={setCurrentDay}
+          setAuthPage={setAuthPage}
+        />
       )}
     </main>
   );

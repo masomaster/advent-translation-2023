@@ -54,12 +54,12 @@ export default function App() {
     const currentYear = new Date().getFullYear();
     const isDecember = new Date().getMonth() === 11;
 
-    // If during Dec '23, set maxDate to currentDate or 25, whichever is less
-    if (currentYear === 2023 && isDecember) {
+    // If during Dec '24, set maxDate to currentDate or 25, whichever is less
+    if (currentYear === 2024 && isDecember) {
       return currentDate < 26 ? currentDate : 25;
     }
-    // If before Dec '23, allow only 1 day
-    if (currentYear === 2023 && !isDecember) {
+    // If before Dec '24, allow only 1 day
+    if (currentYear === 2024 && !isDecember) {
       return 1;
     }
     // Otherwise, allow all 25 days

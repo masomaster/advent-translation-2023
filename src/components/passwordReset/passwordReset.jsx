@@ -4,7 +4,7 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 export default function PasswordReset({ setError, setEmailEntered, setPwReset }) {
   const [email, setEmail] = useState("");
 
-  const handlePasswordReset = async (e) => {
+  async function handlePasswordReset(e) {
     e.preventDefault();
     const auth = getAuth();
 
